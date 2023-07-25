@@ -1,0 +1,20 @@
+1. Informe ao usuario que o programa lerá suas notas e frequencia e dirá o resul. final;
+2. Peça a primeira nota/leia (sysout e sc);      - n1
+3. Peça a segunda nota/leia (sysout e sc);       - n2
+4. Calcular a média das notas -media - (n1+n2)/2
+5. Peça o total de aulas que ele teve e armazene na variavel -- aulasDadas (sysout e sc)
+6. Digite o total de faltas do aluno aulasFaltas (sysout e sc)
+7. Calcular a porcentagem % de frequencia
+8. Mostrar a % de frequencia total -- sysout
+9. SE media>=5.0 e a frequencia >=75 {entao 
+sys out - o aluno está aprovado}
+senao { 
+    sysout - o aluno está reprovado
+
+}
+
+
+
+variaveis = n1, n2, media, frequencia, aulasdadas, aulasFaltas - Todas Double
+
+Double sc = nextDouble();
