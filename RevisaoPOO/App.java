@@ -42,29 +42,37 @@ public class App {
                 usuario[cont] = new Usuario();
                 usuario[cont].setEmail(JOptionPane.showInputDialog("E-mail"));
                 usuario[cont].setSenha(JOptionPane.showInputDialog("Senha"));
-
+                
+               
                
             }
             if (escolha == 2) {
                 JOptionPane.showMessageDialog(null,
                         "Por favor, realize seu cadastro e forneça informações suas e do seu Pet!");
                 animais[cont] = new Animais();
+                usuario[cont] = new Usuario();
+
                 animais[cont].setPorte(JOptionPane.showInputDialog("Informe o porte do seu animal"));
                 animais[cont].setEspecie(JOptionPane.showInputDialog("Informe a espécie do seu animal"));
-                animais[cont].setProprietario(JOptionPane.showInputDialog("Informe o seu nome"));
                 animais[cont].setGenero(JOptionPane.showInputDialog("Informe o genêro do seu animal"));
-                animais[cont].setGenero(JOptionPane.showInputDialog("Informe o E-Mail"));
-                animais[cont].setGenero(JOptionPane.showInputDialog("Crie uma Senha:"));
+                animais[cont].setProprietario(JOptionPane.showInputDialog("Informe o seu nome"));
+                usuario[cont].setEmail(JOptionPane.showInputDialog("Informe o E-Mail"));
+                usuario[cont].setSenha(JOptionPane.showInputDialog("Crie uma Senha:"));
                 JOptionPane.showMessageDialog(null, "Seu cadastro foi realizado com sucesso!");
-                cont++;
+                JOptionPane.showMessageDialog(null, "Infos: "
+                +"\n Porte: "+ animais[cont].getPorte()
+                +"\n Espécie: "+ animais[cont].getEspecie()
+                +"\n Genêro: "+animais[cont].getGenero()
+                +"\n Proprietário: "+ animais[cont].getProprietario()
+                +"\n E-mail: "+ usuario[cont].getEmail()
+                +"\n Senha: ********" );
+                 cont++;
 
-            } else if (escolha == 3) {
+            } if (escolha == 3) {
                 ligado = false;
                 JOptionPane.showMessageDialog(null, "Obrigado pela preferência!" +
                         "\n Até a próxima!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Digite uma opção válida");
-            }
+            } 
 
         }
 

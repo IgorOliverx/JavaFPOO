@@ -5,7 +5,7 @@ public class Usuario {
     String email;
     String senha;
 
-    public void setEmail(String showInputDialog) {
+    public void setEmail(String email) {
         this.email = email;
     }
     public String getEmail(){
