@@ -7,6 +7,7 @@ public class Animais {
      String proprietario;
      String genero;
      String especie;
+     
  
      // métodos
  
@@ -64,5 +65,10 @@ public class Animais {
      public void setEspecie(String especie) {
          this.especie = especie;
      }
+
+    
+    
+
+
  
 }
