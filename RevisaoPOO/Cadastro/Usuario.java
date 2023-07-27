@@ -5,6 +5,11 @@ public class Usuario {
     String email;
     String senha;
 
+
+    public void realizarLogin() {
+        
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
