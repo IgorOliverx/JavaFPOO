@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import POOAgenda.Agenda.Agendamento;
 import POOAgenda.Cadastro.Animais;
 import POOAgenda.Cadastro.Gato;
 import POOAgenda.Cadastro.Animais;
 import POOAgenda.Cadastro.Cachorro;
 import POOAgenda.Cadastro.Outros;
+import POOAgenda.Agenda.Agendamento;
 
 public class App {
     public static void main(String[] args) {
@@ -17,9 +19,10 @@ public class App {
         Gato gatos[] = new Gato[20];
         Cachorro dogs [] = new Cachorro[20];
         Outros outros [] = new Outros[20];
+        Agendamento[] agenda = new Agendamento[100];
 
        //criando um contador para percorrer as infos do vertor que foi criado
-       int contDog = 0; int contCat = 0; int contOutros = 0;
+       int contDog = 0; int contCat = 0; int contOutros = 0; int contAgenda = 0;
 
        //criando um vetor de verificação de dados com o show confirm dialog
        Gato vGatos [] = new Gato[20];
@@ -104,22 +107,75 @@ public class App {
                 JOptionPane.showMessageDialog(null, "Opção inválida");
             }
         } else if (acao == 2) {
-            boolean aceito = true; 
+
+            boolean cadastroOK = false; //poderia fazer com boolean
+
             JOptionPane.showMessageDialog(null, "Bem-vindo ao agendamento ON-LINE", null, acao, null);
+            //verificação do cadastro
            String buscarCadastro =  JOptionPane.showInputDialog(null, "Primeiro, informe o nome do proprietário");
-            
-           for (int i = 0; i < contCat; i++) {
-                if(buscarCadastro == gatos[i].getProprietario()) {
-                    contCat = i;
-                    JOptionPane.showMessageDialog(null,"Cadastro encontrado" );
+
+           //percorrer o laço para procurar o nome do proprietário
+           for (int i = 0; i < contCat; i++) { // criar id pro animal para nao conter ambiguidade de nomes seria uma forma de fazer com que não houvesse o erro de conter dois nomes iguais
+                if(gatos[contCat].getProprietario().equals(buscarCadastro)) {
+                    JOptionPane.showMessageDialog(null,"Cadastro encontrado" ); 
+                    cadastroOK = true;
+                    break;
                 }else {
                     JOptionPane.showMessageDialog(null,"Cadastro não encontrado" );
-                }
-
-                
+                }   
             }
+            for (int i = 0; i < contDog; i++) { 
+                if(dogs[contDog].getProprietario().equals(buscarCadastro)) {
+                    JOptionPane.showMessageDialog(null,"Cadastro encontrado" );
+                    cadastroOK = true;
+                     break;
+                }else {
+                    JOptionPane.showMessageDialog(null,"Cadastro não encontrado" );
+                }  
+            }
+            for (int i = 0; i < contOutros; i++) { // criar id pro animal para nao conter ambiguidade de nomes seria uma forma de fazer com que não houvesse o erro de conter dois nomes iguais
+                if(outros[contOutros].getProprietario().equals(buscarCadastro)) {
+                    JOptionPane.showMessageDialog(null,"Cadastro encontrado" ); 
+                    cadastroOK = true; 
+                    break;
+                }else {
+                    JOptionPane.showMessageDialog(null,"Cadastro não encontrado" );
+                }   
+            }
+            //1° verificação foi verificar se o cadastro existe
+            //2° verificação vai ser agendar não podendo ter 2 consultas em mesmo dia e mesmo horário
+
+            String dataAgenda = JOptionPane.showInputDialog(null, "informe a Data do agendamento");
+            String horaAgenda = JOptionPane.showInputDialog(null, "informe a Hora do agendamento");
+            boolean agendaOk = true;
+            while(agendaOk) {
+                for (int i = 0; i < contAgenda; i++) {
+                if(agenda[i].getDataHora().equals(horaAgenda + dataAgenda)){
+                JOptionPane.showMessageDialog(null, "Horário indisponível, escolha outro");
+            }else {
+                agendaOk = false;
+            }
+            }
+            
+            }
+            
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        }
 
 }

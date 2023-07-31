@@ -2,40 +2,35 @@ package POOAgenda.Agenda;
 
 public class Agendamento {
    //atributos
-   int agenda;
-   int dia;
-   int mes;
+   String data;
+   String hora;
+   String dataHora;
    int ano; // nao vou usar pq claramente é 2023 rsrssr
-   String cliente;
-   int horario;
 
-   
+
+   public String getData() {
+      return data;
+   }
+   public void setData(String data) {
+      this.data = data;
+   }
+   public String getHora() {
+      return hora;
+   }
+   public void setHora(String hora) {
+      this.hora = hora;
+   }
+   public String getDataHora() {
+      dataHora = data+hora;
+      return dataHora;
+   }
+   public void setDataHora(String dataHora) {
+      this.dataHora = dataHora;
+   }
+
    //métodos
-   public int getAgenda() {
-      agenda = dia+mes+horario;
-      return agenda;
-   }
-   public void setAgenda(int agendamento) {
-      this.agenda = agenda;
-   }
-   public int getDia() {
-      return dia;
-   }
-   public void setDia(int dia) {
-      this.dia = dia;
-   }
-   public int getMes() {
-      return mes;
-   }
-   public void setMes(int mes) {
-      this.mes = mes;
-   }
-   public String getCliente() {
-      return cliente;
-   }
-   public void setCliente(String cliente) {
-      this.cliente = cliente;
-   }
+   
+  
 
    
 }
