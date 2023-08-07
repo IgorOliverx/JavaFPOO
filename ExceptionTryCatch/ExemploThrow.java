@@ -9,6 +9,9 @@ public class ExemploThrow {
         String user;
         String dataNascimento;
 
+        boolean uperCase = false;
+        
+
         while(tenteNovamente) {
 
             try {
@@ -24,8 +27,10 @@ public class ExemploThrow {
                 throw new Exception ("A senha deve conter mais que 8 caracteres");   
             }if (senha.equals(dataNascimento)){
                 throw new Exception("A sua senha não pode ser igual a sua data de nascimento");
-            } if ()
+            } 
+ {
 
+ }
             JOptionPane.showMessageDialog(null,"User cadastrada com sucesso!");
             JOptionPane.showMessageDialog(null,"Senha cadastrada com sucesso!");
             JOptionPane.showMessageDialog(null,"Data de nascimento cadastrada com sucesso!");
