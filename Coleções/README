@@ -1,0 +1,36 @@
+Existem muitos métodos para a classe ARRAYLIST e veremos os principais a seguir.
+
+Lembre-se que por padrão a classe vem com um array de tamanho [10]
+
+Principais métodos da Classe ArrayList e LinkedList; AINDA TEMOS O HASHMAP QUE ACORDA VARIAS OUTRAS FUNÇÕES E TEM UM TIPO DIFERENCIADO DE NOMEAÇÃO E ETC; 
+
+.add() - Este método adiciona um elemento especificado ao final da lista do Array.
+add(int index, Object element): Insere o elemento especificado na posição indicada da lista.
+clear(): Remove todos os elementos da lista.
+contains(Object element): Retorna verdadeiro se a lista contém o elemento especificado e falso caso contrário.
+get(int index): Retorna o i-ésimo elemento da lista.
+indexOf(Object element): Retorna a posição da primeira ocorrência do elemento especificado na lista.
+isEmpty(): Retorna verdadeiro se a lista estiver vazia e falso caso contrário.
+lastIndexOf(Object element): Retorna a posição da última ocorrência do elemento especificado na lista.
+remove(int index): Remove o i-ésimo elemento da lista.
+set(int index, Object element): Substitui o i-ésimo elemento da lista pelo elemento especificado.
+size(): Retorna o número de elementos da lista.
+
+
+
+
+EXEMPLOS:
+//Criação do vetor;
+String vetor [] = new String[4];
+//Atribuição de algum valor a determinada posição que eu queira
+vetor[0] = "Palmeiras";
+// No caso eu atribui o valor "Palmeiras" a posição 1 do índice 0;
+
+
+//Criação do ArrayList - Por padrão essa classe inclui capacidade inicial de 10 elementos!
+//Lembre-se que o ArrayList é uma classe que se comporta como uma espécie de vetor dinâmico, semelhante ao do python
+ArrayList<String> vetorArray = new ArrayList<>();
+//Atribuição de algum valor na posição 1 do índice 0
+vetorArray.add("Palmeiras");
+// No caso eu atribui o valor "Palmeiras"
+//Caso eu queira atribuir Palmeiras a posição 7 do índice 6 eu também consigo!!!;
