@@ -35,4 +35,4 @@ dentro do app deve acontecer;
 
 
 //preciso acabar isto em casa; tente fazer com que seja string options ao inves desse bloco em while feio;
-
+//fazer a consulta dos carros e o metodo de apagar

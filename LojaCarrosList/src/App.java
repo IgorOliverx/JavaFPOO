@@ -39,13 +39,14 @@ public class App extends Carros{
                       String listar = " ";
                       for (Carros carros : listaCarros) {
                         listar+= 
-                        "Marca do carro:"+carros.getMarca()+ " Modelo do carro: "+carros.getModelo()+"\n";
+                        "Marca:"+carros.getMarca()+"\n"+ " Modelo: "+carros.getModelo()+"\n";
                       }
                       JOptionPane.showMessageDialog(null, listar);
                     
                 }
 
                  if (escolha == 3) {
+                   //Consultar carro a partir de marca e modelo;
                    
                 }
 
