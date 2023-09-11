@@ -6,10 +6,12 @@ public class JanelaP extends JFrame {
         super("Projeto");
 
         this.add(new JanelaAbas());
+        
 
+        
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setBounds(550, 200, 1000, 1000);
+        
         this.pack();
     }
 }
