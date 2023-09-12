@@ -40,7 +40,7 @@ Em busca de obter a experiência completa, fomos atrás de "colocar pra funciona
 A terceira e última calculadora - calc3 explora um outro tipo de layout que não foi apresentado em sala de aula e tem a simples tarefa de converter milhas para km.
 
 
-Calculadora 1:
+        Calculadora 1:
 
 A calculadora 1 simula uma calculadora científica e utiliza o container principal como border - que redimensiona outro container que é grid que aloca os componentes - botoes e uma caixa de texto.
 Comentei o código dividindo suas linhas para uma maior compreensão. Cada linha contém 'n' componentes pré-definidos pelas cols do layout grid. Utilizei códigos para simular alguns caracteres especiais, como "\u27A1".
@@ -52,7 +52,7 @@ A calculadora ficou visualmente agradável e bem organizada, mas não tem funcio
 
 
 
-Calculadora 2:
+        Calculadora 2:
 
 A calculadora 2 é uma calculadora padrão simples que realiza com eficiência as 4 operações aritméticas.
 Novamente usamos dois containers para distribuição dos componentes, border e grid. Criamos os botões todos a partir de um vetor e um for que percorre adicionando os componentes.
@@ -80,7 +80,7 @@ Não é a calculadora mais agradável visuamente, mas realiza suas funções com
 
 
 
-Calculadora 3:
+        Calculadora 3:
 
 A calculadora 3 utiliza um tipo de layout que não foi visto em sala de aula, que é o cardLayout -
 
@@ -94,6 +94,20 @@ Método de converterMilhasKm é feito para armazenar o valor que foi digitado na
 
 
 
-        CONCLUSÃO
+        CONCLUSÃO 
 
 Chegamos a uma calculadora de conversão até que visualmente agradável e satisfatória quanto ao seu resultado, mas com toda certeza, tivemos muita dificuldade em adaptar o layout do jeito que queriamos.
+
+
+
+
+
+
+
+
+
+        CONCLUSÃO FINAL:
+
+Usamos 4 tipos de layout e obtemos uma experiência de como funcionam as GUI em java. Claro que tivemos preferências ou facilidade de manipulação de cada layout, mas no geral todos os tipos exercem uma função que se adequa ao tipo de software que você deseja fazer.
+Pensamos também em um projeto futuro de fazer um sistema de cadastro de produtos - entrada e saída de dados usando GUI em java.
+Com esse projeto aprendemos sobre diversos tipos de Layouts - existem ainda alguns a serem explorados. Entendemos como funcionam os containers e componentes, entendemos como adicionar ouvintes aos botões e realizar determinadas tarefas(a parte de realizar algo foi uma dificuldade e que só pode ser superada assistindo vídeos, consultando blogs e até usando o chatgpt) - acredito que o próximo passo é fazer cada componente realizar uma função que você queira, como por exemplo fazer a calculadora funcionar.

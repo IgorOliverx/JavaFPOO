@@ -19,13 +19,13 @@ public class Calculadora2 extends JPanel implements ActionListener {
         JPanel botoesPainel = new JPanel();
         botoesPainel.setLayout(new GridLayout(5, 4));
 
-        //botões
+        // botões
         String[] botoes = {
-            "log", "rad", "CE", "C",
-            "7", "8", "9", "+",
-            "4", "5", "6", "*",
-            "1", "2", "3", "-",
-            ".", "0", "/", "="
+                "log", "rad", "CE", "C",
+                "7", "8", "9", "+",
+                "4", "5", "6", "*",
+                "1", "2", "3", "-",
+                ".", "0", "/", "="
         };
 
         for (String text : botoes) {
@@ -46,7 +46,8 @@ public class Calculadora2 extends JPanel implements ActionListener {
 
         add(botoesPainel, BorderLayout.CENTER);
     }
-        //adicionando ouvintes aos botões - STACKOVER FLOW e GITHUB :)
+
+    // adicionando ouvintes aos botões - STACKOVER FLOW e GITHUB :)
     @Override
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
@@ -63,7 +64,7 @@ public class Calculadora2 extends JPanel implements ActionListener {
                 double resultado = calcular();
                 display.setText(String.valueOf(resultado));
             } else if (comando.equals("C")) {
-                // Limpa o display 
+                // Limpa o display
                 display.setText("");
             } else if (comando.equals("CE")) {
                 // Limpa o último caractere do display
@@ -78,7 +79,7 @@ public class Calculadora2 extends JPanel implements ActionListener {
         }
     }
 
-    //Método para realizar as operações
+    // Método para realizar as operações
     private double calcular() {
         switch (operacao) {
             case '+':
@@ -98,5 +99,4 @@ public class Calculadora2 extends JPanel implements ActionListener {
         }
     }
 
-    
 }

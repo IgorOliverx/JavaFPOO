@@ -8,9 +8,8 @@ public class Calculadora3 extends JPanel {
     private JLabel resultadoLabel;
 
     public Calculadora3() {
-    
 
-        //adicionando layout ao container
+        // adicionando layout ao container
         JPanel painel = new JPanel();
         GroupLayout layout = new GroupLayout(painel);
         painel.setLayout(layout);
@@ -20,8 +19,7 @@ public class Calculadora3 extends JPanel {
         JLabel milhasLabel = new JLabel("Milhas:");
         milhasField = new JTextField(10);
 
-
-        //alterando cor e adicionando ouvinte ao botao de converter
+        // alterando cor e adicionando ouvinte ao botao de converter
         JButton converterBtn = new JButton("Converter");
         converterBtn.setBackground(Color.BLUE);
         converterBtn.setForeground(Color.WHITE);
@@ -34,27 +32,25 @@ public class Calculadora3 extends JPanel {
         resultadoLabel = new JLabel("Resultado: ");
 
         layout.setHorizontalGroup(
-            layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(milhasLabel)
-                    .addComponent(resultadoLabel))
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(milhasField)
-                    .addComponent(converterBtn))
-        );
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(milhasLabel)
+                                .addComponent(resultadoLabel))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(milhasField)
+                                .addComponent(converterBtn)));
 
         layout.setVerticalGroup(
-            layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(milhasLabel)
-                    .addComponent(milhasField))
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(resultadoLabel)
-                    .addComponent(converterBtn))
-        );
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(milhasLabel)
+                                .addComponent(milhasField))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(resultadoLabel)
+                                .addComponent(converterBtn)));
 
         add(painel);
-        
+
     }
 
     private void converterMilhasKm() {
