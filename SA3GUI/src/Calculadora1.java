@@ -1,28 +1,26 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-
 import java.awt.*;
 
-public class Calculadora1 extends JPanel {
+public class Calculadora1 extends JPanel  {
+   
     public Calculadora1() {
         super();
-     
 
         BorderLayout border = new BorderLayout();
         this.setLayout(border);
 
-        JTextField txt = new JTextField();
-        this.add(txt, BorderLayout.NORTH);
-        txt.setPreferredSize(new Dimension(100, 50));
-        txt.setText("0");
+        JTextField txt0 = new JTextField();
+        this.add(txt0, BorderLayout.NORTH);
+        txt0.setPreferredSize(new Dimension(100, 50));
+        txt0.setText("0");
+        txt0.setHorizontalAlignment(JTextField.RIGHT);
+
 
         JPanel painel = new JPanel();
         this.add(painel, BorderLayout.CENTER);
         GridLayout grid = new GridLayout(8, 5);
 
         painel.setLayout(grid);
-
-     
 
         // 1° LINHA
         painel.add(new MeuBotao("tan"));
@@ -93,10 +91,13 @@ public class Calculadora1 extends JPanel {
         btn.setForeground(Color.WHITE);
         btn.setText("=");
 
-        // set do frame
+
+        //set do JPanel
         this.setVisible(true);
     }
 
+
+    //criei uma classe para settar as configs do meu botao
     public class MeuBotao extends JButton {
         public MeuBotao(String text) {
             super();
@@ -104,12 +105,12 @@ public class Calculadora1 extends JPanel {
             setBackground(gainsboro);
             setForeground(Color.BLACK);
             setText(text);
-
         }
     }
-
+    //criei um metodo para instanciar a classe acima e assim poder criar botoes com as config pré=definidas
     private void criarBotao(String text) {
         MeuBotao btn = new MeuBotao(text);
         add(btn);
     }
+
 }
