@@ -5,7 +5,7 @@ public class JanelaAbas extends JTabbedPane {
         super();
         this.add("Científica", new Calculadora1());
         this.add("Padrão", new Calculadora2());
-        this.add("Velocidade", new Calculadora3());
+        this.add("Conversor M/Km", new Calculadora3());
 
         this.setVisible(true);
     }
