@@ -31,6 +31,8 @@ public class Calculadora3 extends JPanel {
 
         resultadoLabel = new JLabel("Resultado: ");
 
+
+        //distribuindo componentes seguindo formatação do layout
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -53,6 +55,8 @@ public class Calculadora3 extends JPanel {
 
     }
 
+
+    //criando método simples para fazer a conversão. tratamento de exceções :)
     private void converterMilhasKm() {
         try {
             double milhas = Double.parseDouble(milhasField.getText());

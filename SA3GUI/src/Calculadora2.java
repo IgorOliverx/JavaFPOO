@@ -92,7 +92,7 @@ public class Calculadora2 extends JPanel implements ActionListener {
                 if (valor2 != 0) {
                     return valor1 / valor2;
                 } else {
-                    return Double.POSITIVE_INFINITY;
+                    return Double.POSITIVE_INFINITY; // números absurdamente grandes
                 }
             default:
                 return 0;
