@@ -53,12 +53,15 @@ public class Calculadora2 extends JPanel implements ActionListener {
         String comando = e.getActionCommand();
 
         try {
+            // add o botao ao display caso o msm seja um numero e um ponto decimal
             if (Character.isDigit(comando.charAt(0)) || comando.equals(".")) {
                 display.setText(display.getText() + comando);
             } else if ("+-*/".contains(comando)) {
+                  // add o botão se for um operador - armazena o valor atual do display como valor1 e o operador.
                 valor1 = Double.parseDouble(display.getText());
                 operacao = comando.charAt(0);
                 display.setText("");
+                //se o botao clicado for "=" ele calcula oriundo da operação escolhida
             } else if (comando.equals("=")) {
                 valor2 = Double.parseDouble(display.getText());
                 double resultado = calcular();
