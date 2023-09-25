@@ -7,7 +7,7 @@ public class CardsLayout {
     private String buttonPanel = "Card com JButtons";
     private String textPanel = "Card com JTextField";
 
-    public void janela() {
+    public CardsLayout() {
         JFrame jframe = new JFrame();
         JPanel jpanel1 = new JPanel();
         String comboBoxItems[] = { buttonPanel, textPanel };
