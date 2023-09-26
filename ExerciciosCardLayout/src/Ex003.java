@@ -1,22 +1,40 @@
-import java.awt.CardLayout;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 public class Ex003 extends JFrame{
+    
+    String stringPictureURL = "/resources/java.png";
+    public ImageIcon criarImageIcon(String caminho, String descricao) {
+        java.net.URL imgURL = getClass().getResource(caminho);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, descricao);
+        } else {
+            System.err.println("Não foi possível carregar o arquivo de imagem: " + caminho);
+            return null;
+        }
+    }
+    
+
     public Ex003() {
+
+
+
+        
         super("Exercício 1 - Sem gambiarra");
         //criando um painel principal
         JPanel painelMain = new JPanel();
         //layout do painel- cardlayout
         CardLayout cl = new CardLayout();
         painelMain.setLayout(cl);
+
+
         //criar os cards para adicionar o painelMain
         JPanel card1 = new JPanel();
         card1.add(new JLabel("Tela de início"));
         card1.add(new JLabel("Bem-vindo!"));
+        
+
+
         
 
         JPanel card2 = new JPanel();
