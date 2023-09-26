@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Ex001 {
+public class Ex001 extends JFrame{
     JPanel cards;
     private String buttonPainel1 = "Card 1";
     private String buttonPainel2 = "Card 2";
@@ -14,12 +14,12 @@ public class Ex001 {
     public Ex001() {
         JFrame jframe = new JFrame();
         JPanel jpanel1 = new JPanel();
-        String comboBoxItems[] = { buttonPainel1, buttonPainel2, buttonPainel3 };
         // Criando os Cards
 
         //CARD 1
         //Componentes card 1 
         JButton prox1 = new JButton("Próximo");
+        prox1.setBackground(Color.CYAN);
         card1.add(prox1);
         JLabel label1 = new JLabel("Card 1");
         card1.add(label1);
@@ -39,6 +39,7 @@ public class Ex001 {
         //CARD 2
         //Componentes cards 2
         JButton prox2 = new JButton("Próximo");
+        prox2.setBackground(Color.blue);
         prox2.addActionListener(new ActionListener() {
             @Override
              public void actionPerformed(ActionEvent e) {
@@ -48,6 +49,7 @@ public class Ex001 {
         });
         card2.add(prox2);
         JButton anterior2 = new JButton("Anterior");
+        anterior2.setBackground(Color.RED);
          anterior2.addActionListener(new ActionListener() {
             @Override
              public void actionPerformed(ActionEvent e) {
@@ -62,6 +64,7 @@ public class Ex001 {
         //CARD 3 
        //componentes cards 3
          JButton prox3 = new JButton("Próximo");
+         prox3.setBackground(Color.ORANGE);
           prox3.addActionListener(new ActionListener() {
             @Override
              public void actionPerformed(ActionEvent e) {
@@ -71,6 +74,7 @@ public class Ex001 {
         });
         card3.add(prox3);
         JButton anterior3 = new JButton("Anterior");
+        anterior3.setBackground(Color.RED);
          anterior3.addActionListener(new ActionListener() {
             @Override
              public void actionPerformed(ActionEvent e) {
