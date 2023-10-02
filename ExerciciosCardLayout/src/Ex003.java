@@ -2,80 +2,56 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Ex003 extends JFrame{
-    
-    String stringPictureURL = "/resources/java.png";
-    public ImageIcon criarImageIcon(String caminho, String descricao) {
-        java.net.URL imgURL = getClass().getResource(caminho);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, descricao);
-        } else {
-            System.err.println("Não foi possível carregar o arquivo de imagem: " + caminho);
-            return null;
-        }
-    }
-    
-
+    //construtor
     public Ex003() {
-
-
-
-        
-        super("Exercício 1 - Sem gambiarra");
-        //criando um painel principal
-        JPanel painelMain = new JPanel();
-        //layout do painel- cardlayout
+        super("Exercicio - 3_CARD LAYOUT");
+        //adicionando um Painel principal ao frame e dando o card lyout
+        JPanel painelMain = new JPanel();//metafora "caixa do baralho"
         CardLayout cl = new CardLayout();
+        //definindo o layout do painelMain
         painelMain.setLayout(cl);
-
-
-        //criar os cards para adicionar o painelMain
-        JPanel card1 = new JPanel();
-        card1.add(new JLabel("Tela de início"));
-        card1.add(new JLabel("Bem-vindo!"));
-        
-
-
-        
-
-        JPanel card2 = new JPanel();
-        card2.add(new JLabel("Login"));
-
-        JPanel card3 = new JPanel();
-        card3.add(new JLabel("Cadastro"));
-
-
-        //botoes
-        JButton botaoNext = new JButton("Próximo");
-        card1.add(botaoNext);
-        JButton botaoNext2 = new JButton("Próximo");
-        card2.add(botaoNext2);
-        JButton botaoNext3 = new JButton("Próximo");
-        card3.add(botaoNext3);
-        //adicionando cads ao  painelMain
-        painelMain.add(card1);
-        painelMain.add(card2);
-        painelMain.add(card3);
-        //set do frame
         this.add(painelMain);
-        this.setDefaultCloseOperation(2);
-        this.setBounds(100, 100, 300, 300);
+
+        //Card 1 home
+        JPanel card1 = new JPanel( );
+        card1.add(new JLabel("Página de boas vindas"));//mensagem de boas vindas
+        JButton btn1 = new JButton("Login");
+        JButton btn2 = new JButton("Cadastro");
+        card1.add(btn1);
+        card1.add(btn2);
+        painelMain.add(card1, "Home");
+
+
+
+          //Card 2 login
+        JPanel card2 = new JPanel( );
+        card1.add(new JLabel("Página de login"));//Pagina de login
+        JButton btn3 = new JButton("Home");
+        JButton btn4 = new JButton("Cadastro");
+        card2.add(btn3);
+        card2.add(btn4);
+        painelMain.add(card2, "Login");
+
+        //Card 2 login
+        JPanel card3 = new JPanel( );
+        card1.add(new JLabel("Página de Cadastro"));//Pagina de cadastro
+        JButton btn5 = new JButton("Home");
+        JButton btn6 = new JButton("Login");
+        card2.add(btn5);
+        card2.add(btn6);
+        painelMain.add(card3, "Cadastro");
+
+
+        //set do frame
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ao fechar a tela fecha jvm
+        this.setBounds(EXIT_ON_CLOSE, ABORT, 300, 300);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        //criando actionlisterener para o botao
-        botaoNext.addActionListener(e ->{
-            cl.next(painelMain);
-        });
-        botaoNext2.addActionListener(e ->{
-            cl.next(painelMain);
-        });
-        botaoNext3.addActionListener(e ->{
-            cl.next(painelMain);
-        });
 
-
-
-
-
-
+        
+        
     }
+
+
 }
