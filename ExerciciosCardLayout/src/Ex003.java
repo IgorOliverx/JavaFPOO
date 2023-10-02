@@ -48,6 +48,35 @@ public class Ex003 extends JFrame{
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
+        //tratamento de eventos
+        btn1.addActionListener(e->{
+            //troca do card
+            cl.show(painelMain, btn1.getText());
+
+        });
+        btn2.addActionListener(e->{
+            //troca do card
+            cl.show(painelMain, btn2.getText());
+
+        });
+        btn3.addActionListener(e->{
+            //troca do card
+            cl.show(painelMain, btn3.getText());
+
+        });btn4.addActionListener(e->{
+            //troca do card
+            cl.show(painelMain, btn4.getText());
+
+        });btn5.addActionListener(e->{
+            //troca do card
+            cl.show(painelMain, btn5.getText());
+        });
+        btn5.addActionListener(e->{
+            //troca do card
+            cl.show(painelMain, btn6.getText());
+
+        });
+
 
         
         
