@@ -1,9 +1,27 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class Ex005 extends JFrame {
-     int cont = 0;
+
+    //COISAS A FAZER PARA FICAR LEGAL: ADICIONAR UM PAINEL EM CADA CARD - 1 PARA O TITULO E OUTRO PARA OS BOTOES, SEMELHANTE AO QUE FOI FEITO NO CARD HOME - USANDO BORDER LAYOUT
+    int cont = 0;
+    //imagem home
+    ImageIcon imagem = new ImageIcon(getClass().getResource("imgHome.png"));
+    JLabel label = new JLabel(imagem);
+    //imagem card2
+    ImageIcon img1 = new ImageIcon(getClass().getResource("img1.jpg"));
+    JLabel lb1 = new JLabel(img1);
+    //imagem card3
+    ImageIcon img3 = new ImageIcon(getClass().getResource("img2.jpg"));
+    JLabel lb3 = new JLabel(img3);
+    //imagem card4
+    ImageIcon img4 = new ImageIcon(getClass().getResource("img4.jpg"));
+    JLabel lb4 = new JLabel(img4);
+    
+    
+    
 
     public Ex005() {
         super("Quiz Palestra Itália");
@@ -20,21 +38,19 @@ public class Ex005 extends JFrame {
         sub.setLayout(new BorderLayout());
         card1.add(sub);
 
-        sub.setBorder(new EmptyBorder(20,10,20,10));
+        sub.setBorder(new EmptyBorder(20, 10, 10, 10));
         JLabel titulo = new JLabel("Bem-Vindo ao QUIZZMEIRAS");
-        titulo.setBorder(new EmptyBorder(0,10,20,10));
+        titulo.setBorder(new EmptyBorder(10, 10, 20, 10));
         Font fonte = new Font("arial", Font.BOLD, 14);
         titulo.setFont(fonte);
 
-     
         JButton btn1 = new JButton("Iniciar");
         btn1.setBackground(Color.GREEN);
         btn1.setForeground(Color.WHITE);
 
-       sub.add(titulo, BorderLayout.NORTH);
-       sub.add(btn1, BorderLayout.CENTER);
-
-    
+        sub.add(titulo, BorderLayout.NORTH);
+        sub.add(label, BorderLayout.CENTER);
+        sub.add(btn1, BorderLayout.SOUTH);
 
         painelMain.add(card1, "Home");
         btn1.addActionListener(e -> {
@@ -43,13 +59,17 @@ public class Ex005 extends JFrame {
 
         });
 
+
+
+
         // Card 2 login
         JPanel card2 = new JPanel();
         card2.add(new JLabel("Em que ano foi fundado o PALESTRA ITÁLIA?"));// Pagina de login
-        JButton btn2 = new JButton("1914");
-        JButton btn3 = new JButton("1911");
-        JButton btn4 = new JButton("1912");
-        JButton btn5 = new JButton("1915");
+        MeuBotao btn2 = new MeuBotao("1914");
+        MeuBotao btn3 = new MeuBotao("1911");
+        MeuBotao btn4 = new MeuBotao("1912");
+        MeuBotao btn5 = new MeuBotao("1915");
+        card2.add(lb1);
         card2.add(btn2);// resposta correta
         card2.add(btn3);
         card2.add(btn4);
@@ -60,17 +80,18 @@ public class Ex005 extends JFrame {
         btn2.addActionListener(e -> {
             // troca do card
             cl.show(painelMain, btn2.getText());
-            cont +=1;
+            cont += 1;
 
         });
 
         // Card 3
         JPanel card3 = new JPanel();
         card3.add(new JLabel("Ano que o PALMEIRAS ganhou a 1° Libertadores?"));// Pagina de login
-        JButton btn6 = new JButton("1995");
-        JButton btn7 = new JButton("1998");
-        JButton btn8 = new JButton("1999");
-        JButton btn9 = new JButton("2021");
+        MeuBotao btn6 = new MeuBotao("1995");
+        MeuBotao btn7 = new MeuBotao("1998");
+        MeuBotao btn8 = new MeuBotao("1999");
+        MeuBotao btn9 = new MeuBotao("2021");
+        card3.add(lb3);
         card3.add(btn6);
         card3.add(btn7);
         card3.add(btn8);// resposta correta
@@ -78,19 +99,18 @@ public class Ex005 extends JFrame {
         painelMain.add(card3, "1914");
         btn8.addActionListener(e -> {
             cl.show(painelMain, btn8.getText());
-            cont +=1;
+            cont += 1;
         });
-        
 
+        // Card 4
 
-
-         // Card 4
         JPanel card4 = new JPanel();
         card4.add(new JLabel("Ano que o PALMEIRAS ganhou a 1° CDB?"));// Pagina de login
-        JButton btn10 = new JButton("1998");
-        JButton btn11 = new JButton("1992");
-        JButton btn12 = new JButton("1991");
-        JButton btn13 = new JButton("2020");
+        MeuBotao btn10 = new MeuBotao("1998");
+        MeuBotao btn11 = new MeuBotao("1992");
+        MeuBotao btn12 = new MeuBotao("1991");
+        MeuBotao btn13 = new MeuBotao("2020");
+        card4.add(lb4);
         card4.add(btn10);// resposta correta
         card4.add(btn11);
         card4.add(btn12);
@@ -98,19 +118,16 @@ public class Ex005 extends JFrame {
         painelMain.add(card4, "1999");
         btn10.addActionListener(e -> {
             cl.show(painelMain, btn10.getText());
-            cont+=1;
+            cont += 1;
         });
-       
 
-
-
-          // Card 5
+        // Card 5
         JPanel card5 = new JPanel();
-        card5.add(new JLabel("PALMEIRAS 6X1 boca JUnior?"));// Pagina de login
-        JButton btn14 = new JButton("1994");
-        JButton btn15 = new JButton("1997");
-        JButton btn16 = new JButton("1990");
-        JButton btn17 = new JButton("2001");
+        card5.add(new JLabel("PALMEIRAS 6X1 boca juniors?"));// Pagina de login
+        MeuBotao btn14 = new MeuBotao("1994");
+        MeuBotao btn15 = new MeuBotao("1997");
+        MeuBotao btn16 = new MeuBotao("1990");
+        MeuBotao btn17 = new MeuBotao("2001");
         card5.add(btn14);// resposta correta
         card5.add(btn15);
         card5.add(btn16);
@@ -118,20 +135,17 @@ public class Ex005 extends JFrame {
         System.out.println(cont);
         painelMain.add(card5, "1998");
         btn14.addActionListener(e -> {
-
             cl.show(painelMain, btn14.getText());
-            cont+=1;
+            cont += 1;
         });
-       
 
-        
         // Card 6
         JPanel card6 = new JPanel();
         card6.add(new JLabel("PALMEIRAS 4x0 COR PAULISTÃO"));// Pagina de login
         MeuBotao btn18 = new MeuBotao("1985");
-        JButton btn19 = new JButton("1987");
-        JButton btn20 = new JButton("1988");
-        JButton btn21 = new JButton("1993");
+        MeuBotao btn19 = new MeuBotao("1987");
+        MeuBotao btn20 = new MeuBotao("1988");
+        MeuBotao btn21 = new MeuBotao("1993");
         card6.add(btn18);
         card6.add(btn19);
         card6.add(btn20);
@@ -140,18 +154,14 @@ public class Ex005 extends JFrame {
         btn21.addActionListener(e -> {
 
             cl.show(painelMain, btn21.getText());
-            cont+=1;
-                 System.out.println(cont);
+            cont += 1;
+            System.out.println(cont);
         });
-       
 
-           // Card 7
+        // Card 7
         JPanel card7 = new JPanel();
         card7.add(new JLabel("PARABÉNS PALMEIRENSE"));// Pagina de login
         painelMain.add(card7, "1993");
-
-     
-
 
         // set do frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// ao fechar a tela fecha jvm

@@ -1,34 +1,29 @@
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+/**
+ * teste
+ */
 
-public class teste extends JFrame {
-    public teste() {
-        super("Exemplo de JLabel com Imagem");
+ import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
-        // Criar um ImageIcon com a imagem desejada
-        ImageIcon icone = new ImageIcon("/resources/java.png");
+public class Teste extends JFrame {
+    ImageIcon imagem = new ImageIcon(getClass().getResource("1.png"));
+    JLabel label = new JLabel(imagem);
+    
 
-        // Criar um JLabel e definir o ImageIcon
-        JLabel labelComImagem = new JLabel(icone);
+    public Teste() {
+        super();
 
-        // Criar um painel para adicionar o JLabel
-        JPanel painel = new JPanel();
-        painel.add(labelComImagem);
+        this.add(label);
 
-        // Adicionar o painel ao JFrame
-        add(painel);
-
-        // Configurar o tamanho da janela e encerrar quando fechada
-        setSize(300, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Tornar a janela visível
+        setSize(500,400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(this);
         setVisible(true);
     }
-
     public static void main(String[] args) {
-        new teste();
+        new Teste();
     }
 }
+
+
