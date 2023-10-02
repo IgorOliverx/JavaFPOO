@@ -25,20 +25,20 @@ public class Ex003 extends JFrame{
 
           //Card 2 login
         JPanel card2 = new JPanel( );
-        card1.add(new JLabel("Página de login"));//Pagina de login
+        card2.add(new JLabel("Página de login"));//Pagina de login
         JButton btn3 = new JButton("Home");
         JButton btn4 = new JButton("Cadastro");
         card2.add(btn3);
         card2.add(btn4);
         painelMain.add(card2, "Login");
 
-        //Card 2 login
+        //Card 3 login
         JPanel card3 = new JPanel( );
-        card1.add(new JLabel("Página de Cadastro"));//Pagina de cadastro
+        card3.add(new JLabel("Página de Cadastro"));//Pagina de cadastro
         JButton btn5 = new JButton("Home");
         JButton btn6 = new JButton("Login");
-        card2.add(btn5);
-        card2.add(btn6);
+        card3.add(btn5);
+        card3.add(btn6);
         painelMain.add(card3, "Cadastro");
 
 
@@ -63,15 +63,17 @@ public class Ex003 extends JFrame{
             //troca do card
             cl.show(painelMain, btn3.getText());
 
-        });btn4.addActionListener(e->{
+        });
+        btn4.addActionListener(e->{
             //troca do card
             cl.show(painelMain, btn4.getText());
 
-        });btn5.addActionListener(e->{
+        });
+        btn5.addActionListener(e->{
             //troca do card
             cl.show(painelMain, btn5.getText());
         });
-        btn5.addActionListener(e->{
+        btn6.addActionListener(e->{
             //troca do card
             cl.show(painelMain, btn6.getText());
 
