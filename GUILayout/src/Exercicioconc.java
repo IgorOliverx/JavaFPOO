@@ -3,12 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Exercicioconc extends JFrame implements ActionListener{
-    private JButton but;
-    private JLabel teste;
-    private String nomeW;
-    private String sobrenome;
-
+public class Exercicioconc extends JFrame {
 
     public Exercicioconc() {
         super();
@@ -37,7 +32,9 @@ public class Exercicioconc extends JFrame implements ActionListener{
 
         JButton but = new JButton("OK");
         painel.add(but);
-        but.addActionListener(this);
+       
+        JLabel nomeCompleto = new JLabel();
+        painel.add(nomeCompleto);
       
        
         //set do frame 
@@ -46,11 +43,20 @@ public class Exercicioconc extends JFrame implements ActionListener{
         setLocationRelativeTo(this);
         setVisible(true);
 
+
+        //metodo 1
+        // but.addActionListener(e->{
+        //     nomeCompleto.setText(nome.getText()+ " "+ sobrenome.getText());
+        // });
+
+        //metodo 2
+        but.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e ){
+                  nomeCompleto.setText(nome.getText()+ " "+ sobrenome.getText());
+            }
+        });
+
     }
-    @Override
-public void actionPerformed(ActionEvent evento) {
-    resultado = nome+sobrenome;
-}
 
 
     public static void main(String[] args) {
