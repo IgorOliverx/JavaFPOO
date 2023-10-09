@@ -2,8 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Handler;
 
 public class Exercicioconc extends JFrame {
+
+
+    private JTextField nome, sobrenome;
+    private JLabel nomeCompleto;
 
     public Exercicioconc() {
         super();
@@ -15,7 +20,7 @@ public class Exercicioconc extends JFrame {
         JLabel insNome = new JLabel("NOME:");
         painel.add(insNome);
         //text field de nome
-        JTextField nome = new JTextField();
+        nome = new JTextField();
         Dimension dm = new Dimension(200, 20);
         painel.add(nome);
         nome.setPreferredSize(dm);
@@ -25,7 +30,7 @@ public class Exercicioconc extends JFrame {
         JLabel insSobrenome = new JLabel("SOBRENOME:");
         painel.add(insSobrenome);
         //text field de sobrenome
-        JTextField sobrenome = new JTextField();
+        sobrenome = new JTextField();
         painel.add(sobrenome);
         sobrenome.setPreferredSize(dm);
 
@@ -33,7 +38,7 @@ public class Exercicioconc extends JFrame {
         JButton but = new JButton("OK");
         painel.add(but);
        
-        JLabel nomeCompleto = new JLabel();
+        nomeCompleto = new JLabel();
         painel.add(nomeCompleto);
       
        
@@ -44,18 +49,35 @@ public class Exercicioconc extends JFrame {
         setVisible(true);
 
 
-        //metodo 1
+        //Tratamento simplificado -> callback so funciona quando existe apenas um método
         // but.addActionListener(e->{
         //     nomeCompleto.setText(nome.getText()+ " "+ sobrenome.getText());
         // });
 
-        //metodo 2
-        but.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e ){
-                  nomeCompleto.setText(nome.getText()+ " "+ sobrenome.getText());
-            }
-        });
+        //Tratamento de evento do método normal
+        // but.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e ){
+        //           nomeCompleto.setText(nome.getText()+ " "+ sobrenome.getText());
+        //     }    
+        // });
 
+        //Tratamento pelo manipulador handler
+        //Instancia 
+        Handler hd = new Handler();
+        but.addActionListener(hd);
+
+    }
+    public class Handler implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (int i = 0; i < 1; i++) {
+                
+            }
+            nomeCompleto.setText(nome.getText()+ " "+ sobrenome.getText());
+            
+        }
+        
     }
 
 
