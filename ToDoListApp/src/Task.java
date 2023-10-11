@@ -33,6 +33,7 @@ public class Task {
  
     public double duracaoTarefa(){
         double duracaoTask = dataFim - dataInicio;
+        duracaoTask = duracaoTask/1000;
         return duracaoTask;
     }
     public void setDataFim(double dataFim) {

@@ -23,7 +23,7 @@ import java.util.Date;
 public class TodoList extends JFrame {
 
     
-
+    ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
     ImageIcon imgLixeira = new ImageIcon(getClass().getResource("resources/lixeira.png"));
 
     private JPanel mainPanel;
@@ -64,7 +64,12 @@ public class TodoList extends JFrame {
         botaoDeletar.setFocusPainted(false);
         botaoDeletar.setOpaque(false);
         botaoDeletar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        markDoneButton = new JButton("Concluir");
+        markDoneButton = new JButton(imgConcluido);
+        markDoneButton.setBorderPainted(false);
+        markDoneButton.setContentAreaFilled(false);
+        markDoneButton.setFocusPainted(false);
+        markDoneButton.setOpaque(false);
+        markDoneButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         filterComboBox = new JComboBox<>(new String[] { "Todas", "Ativas",
                 "Concluídas" });
         clearCompletedButton = new JButton("Limpar Concluídas");
@@ -179,7 +184,7 @@ public class TodoList extends JFrame {
             Date d = new Date();
             task.setDataFim(d.getTime());
             updateTaskList();
-            JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa());
+            JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa() + " segundos");
 
         }
     }
