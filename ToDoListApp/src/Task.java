@@ -1,12 +1,17 @@
+import java.util.Date;
 public class Task {
     // atributos
     private String description;
     private boolean done;
+    private double dataInicio;
+    private double dataFim;
 
     // construtor(somente String description)
     public Task(String description) {
         this.description = description;
         this.done = false;
+        Date d = new Date();
+        this.dataInicio = d.getTime();
 
     }
 
@@ -22,4 +27,14 @@ public class Task {
     public void setDone(boolean done) {
         this.done = done;
     }
-}
+    public void setDataInicio(double dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+ 
+    public double duracaoTarefa(){
+        double duracaoTask = dataFim - dataInicio;
+        return duracaoTask;
+    }
+    public void setDataFim(double dataFim) {
+        this.dataFim = dataFim;
+    }}
