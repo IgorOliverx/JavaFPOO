@@ -4,12 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
+
+    ImageIcon imgC = new ImageIcon(getClass().getResource("resources/verificar.png"));
+
     private JPanel mainPanel;
     private JLabel usernameLabel;
     private JButton loginButton;
     private JTextField usernameField;
     private String username;
     Dimension d  = new Dimension(600,450);
+
+
     
     public Login() {
         super("Página de início");
