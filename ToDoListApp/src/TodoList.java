@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Handler;
-
 import javax.swing.*;
 import java.awt.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -20,30 +18,37 @@ import java.util.Date;
 /**
  * TodoList
  */
+
 public class TodoList extends JFrame {
 
-    
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
     ImageIcon imgLixeira = new ImageIcon(getClass().getResource("resources/lixeira.png"));
 
     private JPanel mainPanel;
-    private JTextField taskInputField;
-    private JButton botaoAdicionar;
+    private JTextField caixaInserirTarefa;
+    private JButton addButton;
     private JList<String> taskList;
     private DefaultListModel<String> listModel;
-    private JButton botaoDeletar;
+    private JButton deleteButton;
     private JButton markDoneButton;
     private JComboBox<String> filterComboBox;
     private JButton clearCompletedButton;
     private List<Task> tasks;
+    private JLabel userLabel;
 
-    // construtor
-    public TodoList() {
+    public String username;
+
+    // construtor da aplicação
+    public TodoList(String userInput) {
 
         // Configuração da janela principal
-        super("To-Do List App");
+        super("Tasks - " + userInput);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(450, 300);
+        
+        this.setSize(600, 450);
+
+
+
         // Inicializa o painel principal
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -51,19 +56,21 @@ public class TodoList extends JFrame {
         tasks = new ArrayList<>();
         listModel = new DefaultListModel<>();
         taskList = new JList<>(listModel);
-   
 
-       
+        MetodosTask metodosTask = new MetodosTask(this);
 
         // Inicializa campos de entrada, botões e JComboBox
-        taskInputField = new JTextField();
-        botaoAdicionar = new JButton("Adicionar");
-        botaoDeletar = new JButton(imgLixeira);
-        botaoDeletar.setBorderPainted(false);
-        botaoDeletar.setContentAreaFilled(false);
-        botaoDeletar.setFocusPainted(false);
-        botaoDeletar.setOpaque(false);
-        botaoDeletar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        userLabel = new JLabel("Informação do Usuário:"); 
+        JLabel userInputLabel = new JLabel(userInput);
+        caixaInserirTarefa = new JTextField();
+        caixaInserirTarefa.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        addButton = new JButton("Adicionar");
+        deleteButton = new JButton(imgLixeira);
+        deleteButton.setBorderPainted(false);
+        deleteButton.setContentAreaFilled(false);
+        deleteButton.setFocusPainted(false);
+        deleteButton.setOpaque(false);
+        deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         markDoneButton = new JButton(imgConcluido);
         markDoneButton.setBorderPainted(false);
         markDoneButton.setContentAreaFilled(false);
@@ -75,15 +82,15 @@ public class TodoList extends JFrame {
         clearCompletedButton = new JButton("Limpar Concluídas");
         // Configuração do painel de entrada
         JPanel inputPanel = new JPanel(new BorderLayout());
-        inputPanel.add(taskInputField, BorderLayout.CENTER);
-        inputPanel.add(botaoAdicionar, BorderLayout.EAST);
+        inputPanel.add(caixaInserirTarefa, BorderLayout.CENTER);
+        inputPanel.add(addButton, BorderLayout.EAST);
         // Configuração do painel de botões
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        buttonPanel.add(botaoDeletar);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(markDoneButton);
         buttonPanel.add(filterComboBox);
         buttonPanel.add(clearCompletedButton);
-     
+
         // Adiciona os componentes ao painel principal
         mainPanel.add(inputPanel, BorderLayout.NORTH);
         mainPanel.add(new JScrollPane(taskList), BorderLayout.CENTER);
@@ -94,134 +101,102 @@ public class TodoList extends JFrame {
         // ===============================================================
         // Tratamento de eventos da aplicação
         // Tratamento de evento do método normal
-        botaoAdicionar.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addTask();
+                metodosTask.adicionarTarefa();
             }
         });
 
         // Tratamento de evento usando interaçao com o teclado
-        taskInputField.addKeyListener(new KeyAdapter() {
+        caixaInserirTarefa.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    addTask();
+                    metodosTask.adicionarTarefa();
                 }
             }
         });
-
-       
 
         // Evento de Concluir tarefa com double click
         taskList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    markTaskDone();
+                    metodosTask.concluirTask();
                 }
 
             }
         });
 
-        //evento de deletar com o click
-        botaoDeletar.addActionListener(new ActionListener() {
+        // evento de deletar com o click
+        deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                deleteTask();
+
+                Object[] opcoes = { "Sim", "Não" };
+                int resposta = JOptionPane.showOptionDialog(null,
+                        "Você tem certeza que quer excluir essa tarefa? ",
+                        "Exemplo", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    metodosTask.deleteTask();
+                }
+
             }
         });
-        //evento de deletar a partir do botao delete
-         taskList.addKeyListener(new KeyAdapter() {
+        // evento de deletar a partir do botao delete
+        taskList.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_DELETE) {
-                    deleteTask();
+                    metodosTask.deleteTask();
                 }
             }
         });
 
-      
-
         clearCompletedButton.addActionListener(e -> {
-            clearCompletedTasks();
+            metodosTask.clearCompletedTasks();
         });
 
         filterComboBox.addActionListener(e -> {
-            filterTasks();
+            metodosTask.filterTasks();
         });
         markDoneButton.addActionListener(e -> {
-            markTaskDone();
+            metodosTask.concluirTask();
         });
     }
-    // ==================================================================================
 
-    // Configuração de Listener para os Eventos
-    private void addTask() {
-        // Adiciona uma nova task à lista de tasks
-        String taskDescription = taskInputField.getText().trim();// remove espaços vazios
-        if (!taskDescription.isEmpty()) {
-            Task newTask = new Task(taskDescription);
-            tasks.add(newTask);
-            updateTaskList();
-            taskInputField.setText("");
-        }
+    public void setCaixaInserirTarefa(JTextField caixaInserirTarefa) {
+        this.caixaInserirTarefa = caixaInserirTarefa;
     }
 
-    private void deleteTask() {
-        // Exclui a task selecionada da lista de tasks
-        int selectedIndex = taskList.getSelectedIndex(); // marca os indices das tarefas para poder excluir
-
-        // remove de um em um
-        if (selectedIndex >= 0 && selectedIndex < tasks.size()) {
-            tasks.remove(selectedIndex);
-            updateTaskList();
-        }
+    public JTextField getCaixaInserirTarefa() {
+        return caixaInserirTarefa;
     }
 
-    private void markTaskDone() {
-        // Marca a task selecionada como concluída
-        int selectedIndex = taskList.getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < tasks.size()) {
-            Task task = tasks.get(selectedIndex);
-            task.setDone(true);
-            Date d = new Date();
-            task.setDataFim(d.getTime());
-            updateTaskList();
-            JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa() + " segundos");
-
-        }
+    public JList<String> getTaskList() {
+        return taskList;
     }
 
-    private void filterTasks() {
-        // Filtra as tasks com base na seleção do JComboBox
-        String filter = (String) filterComboBox.getSelectedItem();
-        listModel.clear();
-        for (Task task : tasks) {
-            if (filter.equals("Todas") || (filter.equals("Ativas") &&
-                    !task.isDone()) || (filter.equals("Concluídas") && task.isDone())) {
-                listModel.addElement(task.getDescription());
-            }
-        }
+    public DefaultListModel<String> getListModel() {
+        return listModel;
     }
 
-    private void clearCompletedTasks() {
-        // Limpa todas as tasks concluídas da lista
-        List<Task> completedTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.isDone()) {
-                completedTasks.add(task);
-            }
-        }
-        tasks.removeAll(completedTasks);
-        updateTaskList();
+    public JButton getDeleteButton() {
+        return deleteButton;
     }
 
-    private void updateTaskList() {
-        // Atualiza a lista de tasks exibida na GUI
-        listModel.clear();
-        for (Task task : tasks) {
-            listModel.addElement(task.getDescription() + (task.isDone() ?
+    public JButton getMarkDoneButton() {
+        return markDoneButton;
+    }
 
-                    " (✔)" : ""));
+    public JComboBox<String> getFilterComboBox() {
+        return filterComboBox;
+    }
 
-        }
+    public JButton getClearCompletedButton() {
+        return clearCompletedButton;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public void run() {
@@ -230,6 +205,6 @@ public class TodoList extends JFrame {
     }
 
     public static void main(String[] args) {
-        new TodoList().run();
+        new Login();
     }
 }
