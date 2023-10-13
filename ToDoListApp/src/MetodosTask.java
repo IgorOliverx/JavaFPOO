@@ -50,14 +50,15 @@ public class MetodosTask {
     public void deleteTask() {
         // Exclui a task selecionada da lista de tasks
         int selectedIndex = todoList.getTaskList().getSelectedIndex(); // marca os indices das tarefas para poder excluir
-
-        // remove de um em um
         try{
+        // remove de um em um
         if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
            todoList.getTasks().remove(selectedIndex);
             updateTaskList();
-        }}catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao remover");
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma tarefa!");
+        }}catch(Exception e ){
+            JOptionPane.showMessageDialog(null, "Erro!", "Error", JOptionPane.CANCEL_OPTION);
         }
     }
 

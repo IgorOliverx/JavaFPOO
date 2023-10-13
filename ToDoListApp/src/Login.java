@@ -1,58 +1,27 @@
 import javax.swing.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Login extends JFrame {
 
+    //instancia de objetos 
     ImageIcon imgC = new ImageIcon(getClass().getResource("resources/verificar.png"));
-
+   
+    
     private JPanel mainPanel;
     private JLabel usernameLabel;
     private JButton loginButton;
     private JTextField usernameField;
     private String username;
-
-
     
-
-    
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-
-
-    public String getUsername() {
-        return username;
-    }
-    
-
-
-
-    public JTextField getUsernameField() {
-        return usernameField;
-    }
-
-
-
-
-    Dimension d  = new Dimension(600,450);
-
-
     
     public Login() {
         super("Página de início");
-        this.setPreferredSize(d);
-        
+
         // Definindo o JFrame 'TodoList' como false
         JFrame TodoList = new TodoList(username);
         TodoList.setVisible(false);
@@ -104,8 +73,25 @@ public class Login extends JFrame {
         mainPanel.add(loginButton, gbc);
 
         // set do frame
-        this.setSize(300, 100);
+        this.setSize(600, 450);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+
+    //metodos especiais
+      public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+   
+
+
 }

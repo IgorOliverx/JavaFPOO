@@ -144,7 +144,7 @@ public class TodoList extends JFrame {
 
             }
         });
-        // evento de deletar a partir do botao delete -. corrigir a logicaaaaaa
+        // evento de deletar a partir do botao delete 
         taskList.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                  Object[] opcoes = { "Sim", "Não" };
