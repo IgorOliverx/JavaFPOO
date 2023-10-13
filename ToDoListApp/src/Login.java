@@ -74,6 +74,7 @@ public class Login extends JFrame {
 
         // set do frame
         this.setSize(600, 450);
+        this.setLocationRelativeTo(TodoList);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }

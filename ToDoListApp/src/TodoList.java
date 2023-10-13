@@ -39,6 +39,7 @@ public class TodoList extends JFrame {
         super("Bem vindo(a) " + userInput );
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 450);
+        this.setLocationRelativeTo(null);
 
         //Instancia da classe que contem os metodos
         MetodosTask metodosTask = new MetodosTask(this);
