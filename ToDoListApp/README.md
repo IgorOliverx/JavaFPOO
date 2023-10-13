@@ -333,3 +333,58 @@ public class TodoList extends JFrame {
         new TodoList("Luigi").run();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   taskList.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                 Object[] opcoes = { "Sim", "Não" };
+                int resposta = JOptionPane.showOptionDialog(null,
+                        "Você tem certeza que quer excluir essa tarefa? ",
+                        "Excluir tarefa", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+                if (e.getKeyCode() == KeyEvent.VK_DELETE && resposta == JOptionPane.YES_OPTION) {
+                    
+
+                    metodosTask.deleteTask();
+                }
+
+            }
+        });
+
+
+
+
+
+
+
+
+ taskList.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                
+                if (e.getKeyCode() == KeyEvent.VK_DELETE) {         
+                     Object[] opcoes = { "Sim", "Não" };
+                int resposta = JOptionPane.showOptionDialog(null,
+                        "Você tem certeza que quer excluir essa tarefa? ",
+                        "Excluir tarefa", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+
+                        if(e.getKeyCode() == KeyEvent.VK_DELETE && resposta == JOptionPane.YES_OPTION){
+                    metodosTask.deleteTask();
+                    }
+                }
+
+            }
+        });
