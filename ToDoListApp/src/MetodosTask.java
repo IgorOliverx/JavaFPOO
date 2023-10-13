@@ -2,14 +2,38 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import java.awt.*;
+
 public class MetodosTask {
+    ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
 
     private TodoList todoList;
+    private Login login;
+
 
     public MetodosTask(TodoList todoList) {
         this.todoList = todoList;
+    }
+
+    public MetodosTask(Login login){
+        this.login = login;
+    }
+
+    //metodo de fazer login
+      public void fazerLogin(){
+        login.setUsername(login.getUsernameField().getText());
+        if(login.getUsername().length() > 2){
+            JFrame TodoList = new TodoList(login.getUsername());
+            TodoList.setVisible(true);
+            login.dispose();
+        }else {
+            JOptionPane.showMessageDialog(null,"Insira seu nome corretamente");
+        }
+
     }
   
     public void adicionarTarefa() {
@@ -38,17 +62,25 @@ public class MetodosTask {
     }
 
     public void concluirTask() {
-        // Marca a task selecionada como concluída
+        // Marca a task selecionada como concluída -> arrumar logica pra impedir de concluir a task mais de uma vez
+        boolean concluido= false;
         int selectedIndex = todoList.getTaskList().getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
+
+        if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size() && concluido==false) {
             Task task = todoList.getTasks().get(selectedIndex);
             task.setDone(true);
             Date d = new Date();
             task.setDataFim(d.getTime());
             updateTaskList();
-            JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa() + " segundos");
+            JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa() + " segundos","Concluir tarefa", selectedIndex, imgConcluido);
+            
+            concluido=true;
 
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
         }
+    
+   
     }
 
    public void filterTasks() {
@@ -85,4 +117,6 @@ public class MetodosTask {
 
         }
     }    
+
+  
 }

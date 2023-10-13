@@ -9,11 +9,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.util.logging.Handler;
-import java.util.Date;
 
 /**
  * TodoList
@@ -35,48 +30,56 @@ public class TodoList extends JFrame {
     private JButton clearCompletedButton;
     private List<Task> tasks;
     private JLabel userLabel;
-
     public String username;
 
     // construtor da aplicação
     public TodoList(String userInput) {
 
         // Configuração da janela principal
-        super("Tasks - " + userInput);
+        super("Bem vindo(a) " + userInput );
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         this.setSize(600, 450);
 
+        //Instancia da classe que contem os metodos
+        MetodosTask metodosTask = new MetodosTask(this);
 
 
         // Inicializa o painel principal
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+
         // Inicializa a lista de tasks e a lista de tasks concluídas
         tasks = new ArrayList<>();
         listModel = new DefaultListModel<>();
         taskList = new JList<>(listModel);
 
-        MetodosTask metodosTask = new MetodosTask(this);
 
         // Inicializa campos de entrada, botões e JComboBox
         userLabel = new JLabel("Informação do Usuário:"); 
         JLabel userInputLabel = new JLabel(userInput);
+
         caixaInserirTarefa = new JTextField();
         caixaInserirTarefa.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         addButton = new JButton("Adicionar");
+
+        //botao de deletar com a lixeira e configurações pro botao ser apenas o icon
         deleteButton = new JButton(imgLixeira);
         deleteButton.setBorderPainted(false);
         deleteButton.setContentAreaFilled(false);
         deleteButton.setFocusPainted(false);
         deleteButton.setOpaque(false);
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        //botao de concluir configurações pro botao ser apenas o icon
         markDoneButton = new JButton(imgConcluido);
         markDoneButton.setBorderPainted(false);
         markDoneButton.setContentAreaFilled(false);
         markDoneButton.setFocusPainted(false);
         markDoneButton.setOpaque(false);
         markDoneButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
         filterComboBox = new JComboBox<>(new String[] { "Todas", "Ativas",
                 "Concluídas" });
         clearCompletedButton = new JButton("Limpar Concluídas");
@@ -100,7 +103,6 @@ public class TodoList extends JFrame {
 
         // ===============================================================
         // Tratamento de eventos da aplicação
-        // Tratamento de evento do método normal
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 metodosTask.adicionarTarefa();
@@ -134,7 +136,7 @@ public class TodoList extends JFrame {
                 Object[] opcoes = { "Sim", "Não" };
                 int resposta = JOptionPane.showOptionDialog(null,
                         "Você tem certeza que quer excluir essa tarefa? ",
-                        "Exemplo", JOptionPane.YES_NO_OPTION,
+                        "Excluir tarefa", JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
                 if (resposta == JOptionPane.YES_OPTION) {
                     metodosTask.deleteTask();
@@ -142,12 +144,18 @@ public class TodoList extends JFrame {
 
             }
         });
-        // evento de deletar a partir do botao delete
+        // evento de deletar a partir do botao delete -. corrigir a logicaaaaaa
         taskList.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                 Object[] opcoes = { "Sim", "Não" };
+                int resposta = JOptionPane.showOptionDialog(null,
+                        "Você tem certeza que quer excluir essa tarefa? ",
+                        "Excluir tarefa", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+                if (e.getKeyCode() == KeyEvent.VK_DELETE && resposta == JOptionPane.YES_OPTION) {
                     metodosTask.deleteTask();
                 }
+
             }
         });
 
