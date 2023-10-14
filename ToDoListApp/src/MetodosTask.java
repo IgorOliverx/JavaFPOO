@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Color;
 
 public class MetodosTask {
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
@@ -35,7 +36,31 @@ public class MetodosTask {
         }
 
     }
-  
+
+
+
+    public void exibirStatus(String message) {
+        JLabel status = new JLabel(message);
+        JOptionPane janela = new JOptionPane(status, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+    
+        JDialog caixa = janela.createDialog("Status");
+        caixa.setModal(false);
+    
+        int delay = 1000; 
+    
+        Timer timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                caixa.setVisible(false); // Fecha a janela do JOptionPane
+            }
+        });
+    
+        timer.setRepeats(false); // Apenas um único disparo
+        timer.start();
+        caixa.setVisible(true); // Exibe o JOptionPane
+    }
+    
+
     public void adicionarTarefa() {
         // Adiciona uma nova task à lista de tasks
         String taskDescription = todoList.getCaixaInserirTarefa().getText().trim();// remove espaços vazios
@@ -62,8 +87,23 @@ public class MetodosTask {
         }
     }
 
+    public void detalhesTask(){
+
+        int selectedIndex = todoList.getTaskList().getSelectedIndex();//marca os indices das tarefas
+        List<Task> detalhesTasks = new ArrayList<>();
+
+        if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
+           Detalhes detalhe = new Detalhes();
+           detalhe.setVisible(true);
+
+
+           todoList.getTasks();
+            updateTaskList();
+        }
+    }
+
     public void concluirTask() {
-        // Marca a task selecionada como concluída -> arrumar logica pra impedir de concluir a task mais de uma vez
+        // Marca a task selecionada como concluída -> arrumar logica pra impedir de concluir a task mais de uma vez FAZER ISSO URGENTE!!!
         boolean concluido= false;
         int selectedIndex = todoList.getTaskList().getSelectedIndex();
 

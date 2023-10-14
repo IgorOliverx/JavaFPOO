@@ -18,16 +18,15 @@ public class TodoList extends JFrame {
 
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
     ImageIcon imgLixeira = new ImageIcon(getClass().getResource("resources/lixeira.png"));
+    ImageIcon imgDetalhes = new ImageIcon(getClass().getResource("resources/lista.png"));
+
 
     private JPanel mainPanel;
     private JTextField caixaInserirTarefa;
-    private JButton addButton;
+    private JButton addButton, deleteButton, markDoneButton, clearCompletedButton, detalhes;
     private JList<String> taskList;
     private DefaultListModel<String> listModel;
-    private JButton deleteButton;
-    private JButton markDoneButton;
     private JComboBox<String> filterComboBox;
-    private JButton clearCompletedButton;
     private List<Task> tasks;
     private JLabel userLabel;
     public String username;
@@ -84,6 +83,17 @@ public class TodoList extends JFrame {
         filterComboBox = new JComboBox<>(new String[] { "Todas", "Ativas",
                 "Concluídas" });
         clearCompletedButton = new JButton("Limpar Concluídas");
+
+        //configuração e estilização do botao de detalhes
+        detalhes = new JButton(imgDetalhes);
+       detalhes.setBorderPainted(false);
+       detalhes.setContentAreaFilled(false);
+       detalhes.setFocusPainted(false);
+       detalhes.setOpaque(false);
+       detalhes.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
+
         // Configuração do painel de entrada
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(caixaInserirTarefa, BorderLayout.CENTER);
@@ -94,6 +104,7 @@ public class TodoList extends JFrame {
         buttonPanel.add(markDoneButton);
         buttonPanel.add(filterComboBox);
         buttonPanel.add(clearCompletedButton);
+        buttonPanel.add(detalhes);
 
         // Adiciona os componentes ao painel principal
         mainPanel.add(inputPanel, BorderLayout.NORTH);
@@ -141,6 +152,7 @@ public class TodoList extends JFrame {
                         JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
                 if (resposta == JOptionPane.YES_OPTION) {
                     metodosTask.deleteTask();
+                    metodosTask.exibirStatus("Tarefa deletada com sucesso");
                 }
 
             }
@@ -156,6 +168,7 @@ public class TodoList extends JFrame {
                         JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
                         if (resposta == JOptionPane.YES_OPTION){
                     metodosTask.deleteTask();
+                    metodosTask.exibirStatus("Tarefa deletada com sucesso");
                 }
                 }
 
@@ -164,6 +177,10 @@ public class TodoList extends JFrame {
 
         clearCompletedButton.addActionListener(e -> {
             metodosTask.clearCompletedTasks();
+        });
+
+        detalhes.addActionListener(e -> {
+            metodosTask.detalhesTask();
         });
 
         filterComboBox.addActionListener(e -> {
@@ -208,6 +225,15 @@ public class TodoList extends JFrame {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+    
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public void setMainPanel(JPanel mainPanel) {
+        this.mainPanel = mainPanel;
     }
 
     public void run() {
