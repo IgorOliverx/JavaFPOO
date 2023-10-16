@@ -36,6 +36,7 @@ public class Login extends JFrame {
         usernameLabel = new JLabel("Nome de Usuário");
         usernameField = new JTextField(20); // definindo o tamanho do TextField
         loginButton = new JButton("Login");
+        loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         this.add(mainPanel);
 

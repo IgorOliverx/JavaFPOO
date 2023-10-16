@@ -23,9 +23,6 @@ public class Detalhes extends JFrame {
 
     
 
-
-
-
     public Detalhes() {
         super();
        JPanel painelMain = new JPanel(new BorderLayout());

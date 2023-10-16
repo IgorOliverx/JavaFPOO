@@ -21,6 +21,7 @@ public class TodoList extends JFrame {
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
     ImageIcon imgLixeira = new ImageIcon(getClass().getResource("resources/lixeira.png"));
     ImageIcon imgDetalhes = new ImageIcon(getClass().getResource("resources/lista.png"));
+    ImageIcon imgAdd = new ImageIcon(getClass().getResource("resources/add.png"));
 
     private JPanel mainPanel;
     private JTextField caixaInserirTarefa;
@@ -69,8 +70,12 @@ public class TodoList extends JFrame {
         userLabel = new JLabel("Informação do Usuário:");
         JLabel userInputLabel = new JLabel(userInput);
         caixaInserirTarefa = new JTextField();
-        caixaInserirTarefa.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addButton = new JButton("Adicionar");
+        addButton = new JButton(imgAdd);
+        addButton.setBorderPainted(false);
+        addButton.setContentAreaFilled(false);
+        addButton.setFocusPainted(false);
+        addButton.setOpaque(false);
+        addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         // botao de deletar com a lixeira e configurações pro botao ser apenas o icon
         deleteButton = new JButton(imgLixeira);
@@ -90,7 +95,9 @@ public class TodoList extends JFrame {
 
         filterComboBox = new JComboBox<>(new String[] { "Todas", "Ativas",
                 "Concluídas" });
+        filterComboBox.setCursor(new Cursor(Cursor.HAND_CURSOR));
         clearCompletedButton = new JButton("Limpar Concluídas");
+        clearCompletedButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         // configuração e estilização do botao de detalhes
         detalhes = new JButton(imgDetalhes);
@@ -101,12 +108,12 @@ public class TodoList extends JFrame {
         detalhes.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
+        //Configuração para aparecer data e hora em JLabel
         data = new JLabel();
         hora = new JLabel();
         Date dataSistema = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         data.setText(formato.format(dataSistema));
-        
 
         Timer horaSistema = new Timer(1000, new hora());
         horaSistema.start(); 

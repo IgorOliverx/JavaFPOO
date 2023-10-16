@@ -26,7 +26,7 @@ public class MetodosTask {
     // metodo de fazer login
     public void fazerLogin() {
         login.setUsername(login.getUsernameField().getText());
-        if (login.getUsername().length() > 2) {
+        if (login.getUsername().length() > 2 && login.getUsername().length() < 15 ) {
             JFrame TodoList = new TodoList(login.getUsername());
             TodoList.setVisible(true);
             login.dispose(); 
@@ -90,7 +90,7 @@ public class MetodosTask {
                     exibirStatus("Tarefa deletada com sucesso");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, selecione uma tarefa!");
+                JOptionPane.showMessageDialog(null ,"Por favor, selecione uma tarefa!", null, JOptionPane.CANCEL_OPTION);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro!", "Error", JOptionPane.CANCEL_OPTION);
@@ -118,7 +118,7 @@ public class MetodosTask {
 
             DetalhesTask newDescricao = new DetalhesTask(detalhesDaTask);
             detalhes.getDescricao().add(newDescricao);
-            // updateTaskList();
+             //updateTaskList();
             // detalhes.getCaixaInserirDetalhes().setText("");
 
         }
