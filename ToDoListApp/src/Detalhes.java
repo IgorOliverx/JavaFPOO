@@ -5,12 +5,26 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import java.util.ArrayList;
 import java.awt.*;
+import java.util.List;
+
 
 public class Detalhes extends JFrame {
     TodoList todoList = new TodoList(getName());
+    DetalhesTask detalhesTask = new DetalhesTask(getName());
+    MetodosTask metodosTask = new MetodosTask(todoList);
 
-    Dimension d = new Dimension(300, 150);
+    private JButton salvar,fechar;
+    private JTextField caixaInserirDetalhes;
+
+
+    private List<DetalhesTask> descricao;
+
+    
+
+
+
 
     public Detalhes() {
         super();
@@ -18,12 +32,28 @@ public class Detalhes extends JFrame {
        this.add(painelMain, BorderLayout.CENTER);
        JPanel painelSul = new JPanel(new FlowLayout());
        this.add(painelSul, BorderLayout.SOUTH);
-       painelSul.add(new JButton("Salvar e sair"));
-       painelSul.add(new JButton("Fechar") );
-       painelMain.add(new JTextField());
+
+       //componentes
+       salvar = new JButton("Salvar e sair");
+       fechar = new JButton("Fechar");
+       caixaInserirDetalhes = new JTextField();
+
+       //adicionando componentes na posição e settando tamanho
+       painelSul.add(salvar);
+       painelSul.add(fechar);
+       painelMain.add(caixaInserirDetalhes);
        painelMain.setSize(200, 100);
     
-  
+       //inicializando array que guarda descricao
+       descricao = new ArrayList<>();
+
+       fechar.addActionListener(e -> {
+        this.dispose();
+       });
+
+       salvar.addActionListener(e -> {
+        metodosTask.salvarDetalhesTask();
+       });
  
     //set Frame
     
@@ -35,7 +65,19 @@ public class Detalhes extends JFrame {
 
 
     }
-public static void main(String[] args) {
-    new Detalhes();
-}
+
+
+
+    public JTextField getCaixaInserirDetalhes() {
+        return caixaInserirDetalhes;
+    }
+
+    
+    public List<DetalhesTask> getDescricao() {
+        return descricao;
+    }
+
+
+    
+
 }

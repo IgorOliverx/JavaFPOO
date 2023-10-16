@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +19,6 @@ public class TodoList extends JFrame {
     ImageIcon imgLixeira = new ImageIcon(getClass().getResource("resources/lixeira.png"));
     ImageIcon imgDetalhes = new ImageIcon(getClass().getResource("resources/lista.png"));
 
-
     private JPanel mainPanel;
     private JTextField caixaInserirTarefa;
     private JButton addButton, deleteButton, markDoneButton, clearCompletedButton, detalhes;
@@ -28,21 +26,20 @@ public class TodoList extends JFrame {
     private DefaultListModel<String> listModel;
     private JComboBox<String> filterComboBox;
     private List<Task> tasks;
-    private JLabel userLabel;
+    private JLabel userLabel; // Isso vai ser usado?
     public String username;
 
     // construtor da aplicação
     public TodoList(String userInput) {
 
         // Configuração da janela principal
-        super("Bem vindo(a) " + userInput );
+        super("Bem vindo(a) " + userInput);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 450);
         this.setLocationRelativeTo(null);
 
-        //Instancia da classe que contem os metodos
+        // Instancia da classe que contem os metodos
         MetodosTask metodosTask = new MetodosTask(this);
-
 
         // Inicializa o painel principal
         mainPanel = new JPanel();
@@ -53,17 +50,14 @@ public class TodoList extends JFrame {
         listModel = new DefaultListModel<>();
         taskList = new JList<>(listModel);
 
-
-        // Inicializa campos de entrada, botões e JComboBox
-        userLabel = new JLabel("Informação do Usuário:"); 
+        // Inicializa campos de entrada, botões e JComboBox -> parte superior do painel
+        userLabel = new JLabel("Informação do Usuário:");
         JLabel userInputLabel = new JLabel(userInput);
-
         caixaInserirTarefa = new JTextField();
         caixaInserirTarefa.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
         addButton = new JButton("Adicionar");
 
-        //botao de deletar com a lixeira e configurações pro botao ser apenas o icon
+        // botao de deletar com a lixeira e configurações pro botao ser apenas o icon
         deleteButton = new JButton(imgLixeira);
         deleteButton.setBorderPainted(false);
         deleteButton.setContentAreaFilled(false);
@@ -71,7 +65,7 @@ public class TodoList extends JFrame {
         deleteButton.setOpaque(false);
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        //botao de concluir configurações pro botao ser apenas o icon
+        // botao de concluir configurações pro botao ser apenas o icon
         markDoneButton = new JButton(imgConcluido);
         markDoneButton.setBorderPainted(false);
         markDoneButton.setContentAreaFilled(false);
@@ -79,20 +73,17 @@ public class TodoList extends JFrame {
         markDoneButton.setOpaque(false);
         markDoneButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-
         filterComboBox = new JComboBox<>(new String[] { "Todas", "Ativas",
                 "Concluídas" });
         clearCompletedButton = new JButton("Limpar Concluídas");
 
-        //configuração e estilização do botao de detalhes
+        // configuração e estilização do botao de detalhes
         detalhes = new JButton(imgDetalhes);
-       detalhes.setBorderPainted(false);
-       detalhes.setContentAreaFilled(false);
-       detalhes.setFocusPainted(false);
-       detalhes.setOpaque(false);
-       detalhes.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-
+        detalhes.setBorderPainted(false);
+        detalhes.setContentAreaFilled(false);
+        detalhes.setFocusPainted(false);
+        detalhes.setOpaque(false);
+        detalhes.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         // Configuração do painel de entrada
         JPanel inputPanel = new JPanel(new BorderLayout());
@@ -142,36 +133,16 @@ public class TodoList extends JFrame {
         });
 
         // evento de deletar com o click
-        deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                Object[] opcoes = { "Sim", "Não" };
-                int resposta = JOptionPane.showOptionDialog(null,
-                        "Você tem certeza que quer excluir essa tarefa? ",
-                        "Excluir tarefa", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    metodosTask.deleteTask();
-                    metodosTask.exibirStatus("Tarefa deletada com sucesso");
-                }
-
-            }
+        deleteButton.addActionListener(e -> {
+            metodosTask.deleteTask();
         });
-        // evento de deletar a partir do botao delete 
+
+        // evento de deletar a partir do botao delete
         taskList.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                 Object[] opcoes = { "Sim", "Não" };
                 if (e.getKeyCode() == KeyEvent.VK_DELETE) {
-                    int resposta = JOptionPane.showOptionDialog(null,
-                        "Você tem certeza que quer excluir essa tarefa? ",
-                        "Excluir tarefa", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
-                        if (resposta == JOptionPane.YES_OPTION){
                     metodosTask.deleteTask();
-                    metodosTask.exibirStatus("Tarefa deletada com sucesso");
                 }
-                }
-
             }
         });
 
@@ -226,7 +197,6 @@ public class TodoList extends JFrame {
     public List<Task> getTasks() {
         return tasks;
     }
-    
 
     public JPanel getMainPanel() {
         return mainPanel;
