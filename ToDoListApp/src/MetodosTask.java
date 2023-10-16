@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 public class MetodosTask {
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
@@ -28,7 +29,8 @@ public class MetodosTask {
         if (login.getUsername().length() > 2) {
             JFrame TodoList = new TodoList(login.getUsername());
             TodoList.setVisible(true);
-            login.dispose();
+            login.dispose(); 
+        
         } else {
             JOptionPane.showMessageDialog(null, "Insira seu nome corretamente");
         }
@@ -56,6 +58,8 @@ public class MetodosTask {
         timer.start();
         caixa.setVisible(true); // Exibe o JOptionPane
     }
+
+   
 
     public void adicionarTarefa() {
         // Adiciona uma nova task à lista de tasks
@@ -122,18 +126,23 @@ public class MetodosTask {
 
     public void concluirTask() {
         // Marca a task selecionada como concluída -> arrumar logica pra impedir de
-        // concluir a task mais de uma vez FAZER ISSO URGENTE!!!
+        // concluir a task mais de uma vez FAZER ISSO URGENTE!!! -> logica resolvida
         int selectedIndex = todoList.getTaskList().getSelectedIndex();
 
         if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
             Task task = todoList.getTasks().get(selectedIndex);
-            task.setDone(true);
-            Date d = new Date();
-            task.setDataFim(d.getTime());
-            updateTaskList();
-            JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa() + " segundos",
-                    "Concluir tarefa", selectedIndex, imgConcluido);
 
+            if (task.isDone() == false) {
+                task.setDone(true);
+                Date d = new Date();
+                task.setDataFim(d.getTime());
+                updateTaskList();
+                JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa() + " segundos",
+                        "Concluir tarefa", selectedIndex, imgConcluido);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Tarefa já concluída!", null, JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
         }

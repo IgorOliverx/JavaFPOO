@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 
 /**
  * TodoList
@@ -26,8 +29,20 @@ public class TodoList extends JFrame {
     private DefaultListModel<String> listModel;
     private JComboBox<String> filterComboBox;
     private List<Task> tasks;
-    private JLabel userLabel; // Isso vai ser usado?
+    private JLabel userLabel; // Isso vai ser usado, luiginho?
     public String username;
+
+
+    private JLabel data,hora;
+    
+    
+
+
+
+
+
+   
+
 
     // construtor da aplicação
     public TodoList(String userInput) {
@@ -85,6 +100,20 @@ public class TodoList extends JFrame {
         detalhes.setOpaque(false);
         detalhes.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+
+        data = new JLabel();
+        hora = new JLabel();
+        Date dataSistema = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        data.setText(formato.format(dataSistema));
+        
+
+        Timer horaSistema = new Timer(1000, new hora());
+        horaSistema.start(); 
+
+
+        
+
         // Configuração do painel de entrada
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(caixaInserirTarefa, BorderLayout.CENTER);
@@ -96,6 +125,8 @@ public class TodoList extends JFrame {
         buttonPanel.add(filterComboBox);
         buttonPanel.add(clearCompletedButton);
         buttonPanel.add(detalhes);
+        buttonPanel.add(data);
+        buttonPanel.add(hora);
 
         // Adiciona os componentes ao painel principal
         mainPanel.add(inputPanel, BorderLayout.NORTH);
@@ -205,7 +236,7 @@ public class TodoList extends JFrame {
     public void setMainPanel(JPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
-
+    
     public void run() {
         // Exibe a janela
         this.setVisible(true);
@@ -213,5 +244,17 @@ public class TodoList extends JFrame {
 
     public static void main(String[] args) {
         new Login();
+    }
+
+    /**
+     * InnerTodoList
+     */
+    public class hora implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+        Calendar horaAgora = Calendar.getInstance();
+        hora.setText(String.format("%1$tH:%1$tM:%1$tS", horaAgora));
+        }
+        
     }
 }
