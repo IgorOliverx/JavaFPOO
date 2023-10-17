@@ -15,6 +15,8 @@ public class Task {
 
     }
 
+
+    
     // set and Gets
     public String getDescription() {
         return description;
@@ -38,4 +40,10 @@ public class Task {
     }
     public void setDataFim(double dataFim) {
         this.dataFim = dataFim;
+    }
+
+
+
+    public void setDescription(String description) {
+        this.description = description;
     }}

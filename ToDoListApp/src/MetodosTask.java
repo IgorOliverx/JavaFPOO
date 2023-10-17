@@ -1,12 +1,28 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragGestureRecognizer;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceAdapter;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MetodosTask {
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
@@ -26,11 +42,11 @@ public class MetodosTask {
     // metodo de fazer login
     public void fazerLogin() {
         login.setUsername(login.getUsernameField().getText());
-        if (login.getUsername().length() > 2 && login.getUsername().length() < 15 ) {
+        if (login.getUsername().length() > 2 && login.getUsername().length() < 15) {
             JFrame TodoList = new TodoList(login.getUsername());
             TodoList.setVisible(true);
-            login.dispose(); 
-        
+            login.dispose();
+
         } else {
             JOptionPane.showMessageDialog(null, "Insira seu nome corretamente");
         }
@@ -59,7 +75,6 @@ public class MetodosTask {
         caixa.setVisible(true); // Exibe o JOptionPane
     }
 
-   
 
     public void adicionarTarefa() {
         // Adiciona uma nova task à lista de tasks
@@ -90,7 +105,8 @@ public class MetodosTask {
                     exibirStatus("Tarefa deletada com sucesso");
                 }
             } else {
-                JOptionPane.showMessageDialog(null ,"Por favor, selecione uma tarefa!", null, JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "Por favor, selecione uma tarefa!", null,
+                        JOptionPane.CANCEL_OPTION);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro!", "Error", JOptionPane.CANCEL_OPTION);
@@ -118,15 +134,14 @@ public class MetodosTask {
 
             DetalhesTask newDescricao = new DetalhesTask(detalhesDaTask);
             detalhes.getDescricao().add(newDescricao);
-             //updateTaskList();
+            // updateTaskList();
             // detalhes.getCaixaInserirDetalhes().setText("");
 
         }
     }
 
     public void concluirTask() {
-        // Marca a task selecionada como concluída -> arrumar logica pra impedir de
-        // concluir a task mais de uma vez FAZER ISSO URGENTE!!! -> logica resolvida
+        // Marca a task selecionada como concluída
         int selectedIndex = todoList.getTaskList().getSelectedIndex();
 
         if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
@@ -147,6 +162,40 @@ public class MetodosTask {
             JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
         }
 
+    }
+
+    public void arrastarDeletar(TodoList todoList) {
+        DragSource dragText = DragSource.getDefaultDragSource();
+
+   
+        DragGestureRecognizer arrastar = dragText.createDefaultDragGestureRecognizer(
+            todoList.getTaskList(), DnDConstants.ACTION_COPY, new DragGestureListener() {
+                public void dragGestureRecognized(DragGestureEvent e) {
+                    int selectedIndex = todoList.getTaskList().getSelectedIndex();
+                    if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
+                        String itemSelecionado = todoList.getListModel().getElementAt(selectedIndex);
+                        Transferable transferencia = new StringSelection(itemSelecionado);
+    
+                        e.startDrag(DragSource.DefaultCopyDrop, transferencia, new DragSourceAdapter() {
+    
+                        });
+                    }
+                }
+    
+               
+            });
+    
+        DropTarget dropTarget= new DropTarget(todoList.getBtnDeletar(), DnDConstants.ACTION_COPY, new DropTargetAdapter() {
+            public void drop(DropTargetDropEvent evt) {
+                Transferable tr = evt.getTransferable();
+                if (tr.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                    deleteTask();
+                    evt.dropComplete(true);
+                } else {
+                    evt.rejectDrop();
+                }
+            }
+        });
     }
 
     public void filterTasks() {
@@ -171,6 +220,27 @@ public class MetodosTask {
         }
         todoList.getTasks().removeAll(completedTasks);
         updateTaskList();
+    }
+
+    public void desfazerConcluir(){
+
+         int selectedIndex = todoList.getTaskList().getSelectedIndex();
+
+        if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
+            Task task = todoList.getTasks().get(selectedIndex);
+            if (task.isDone() == true) {
+                task.setDone(false);
+               exibirStatus("Tarefa desmarcada como 'concluida'");
+                updateTaskList();
+            } else {
+                JOptionPane.showMessageDialog(null, "Tarefa ainda não foi concluída!", null, JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
+        }
+
+
+
     }
 
     public void updateTaskList() {

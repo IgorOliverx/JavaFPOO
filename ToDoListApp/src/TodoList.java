@@ -18,31 +18,26 @@ import java.text.SimpleDateFormat;
 
 public class TodoList extends JFrame {
 
+    //trazendo imagens dos icons 
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
-    ImageIcon imgLixeira = new ImageIcon(getClass().getResource("resources/lixeira.png"));
+    ImageIcon imgLixeira = new ImageIcon(getClass().getResource("resources/arrastar.png"));
     ImageIcon imgDetalhes = new ImageIcon(getClass().getResource("resources/lista.png"));
     ImageIcon imgAdd = new ImageIcon(getClass().getResource("resources/add.png"));
+     ImageIcon imgRecarregar = new ImageIcon(getClass().getResource("resources/reload.png"));
+   
 
     private JPanel mainPanel;
     private JTextField caixaInserirTarefa;
-    private JButton addButton, deleteButton, markDoneButton, clearCompletedButton, detalhes;
+    private JButton addButton, markDoneButton, clearCompletedButton, desfazer, detalhes;
     private JList<String> taskList;
     private DefaultListModel<String> listModel;
     private JComboBox<String> filterComboBox;
     private List<Task> tasks;
-    private JLabel userLabel; // Isso vai ser usado, luiginho?
     public String username;
-
-
-    private JLabel data,hora;
+    private JLabel userLabel;
+    private JLabel data,hora,btnDeletar;
     
     
-
-
-
-
-
-   
 
 
     // construtor da aplicação
@@ -51,7 +46,7 @@ public class TodoList extends JFrame {
         // Configuração da janela principal
         super("Bem vindo(a) " + userInput);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 450);
+        this.setSize(650, 450);
         this.setLocationRelativeTo(null);
 
         // Instancia da classe que contem os metodos
@@ -70,6 +65,8 @@ public class TodoList extends JFrame {
         userLabel = new JLabel("Informação do Usuário:");
         JLabel userInputLabel = new JLabel(userInput);
         caixaInserirTarefa = new JTextField();
+
+        //botao de adicionar com configurações que lhe permitem ser apenas o icon
         addButton = new JButton(imgAdd);
         addButton.setBorderPainted(false);
         addButton.setContentAreaFilled(false);
@@ -77,13 +74,10 @@ public class TodoList extends JFrame {
         addButton.setOpaque(false);
         addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // botao de deletar com a lixeira e configurações pro botao ser apenas o icon
-        deleteButton = new JButton(imgLixeira);
-        deleteButton.setBorderPainted(false);
-        deleteButton.setContentAreaFilled(false);
-        deleteButton.setFocusPainted(false);
-        deleteButton.setOpaque(false);
-        deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // 'botao' de deletar com a lixeira e configurações 
+        btnDeletar = new JLabel(imgLixeira);
+        btnDeletar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        metodosTask.arrastarDeletar(this);
 
         // botao de concluir configurações pro botao ser apenas o icon
         markDoneButton = new JButton(imgConcluido);
@@ -93,11 +87,17 @@ public class TodoList extends JFrame {
         markDoneButton.setOpaque(false);
         markDoneButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        //JcomboBox
         filterComboBox = new JComboBox<>(new String[] { "Todas", "Ativas",
                 "Concluídas" });
         filterComboBox.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        filterComboBox.setBackground(Color.WHITE);
+
+        //Botao de limpar concluidas
         clearCompletedButton = new JButton("Limpar Concluídas");
         clearCompletedButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        clearCompletedButton.setBackground(Color.WHITE);
+
 
         // configuração e estilização do botao de detalhes
         detalhes = new JButton(imgDetalhes);
@@ -107,6 +107,14 @@ public class TodoList extends JFrame {
         detalhes.setOpaque(false);
         detalhes.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        //configuração e estilizacao do botao de desfazer
+        desfazer = new JButton(imgRecarregar);
+        desfazer.setBorderPainted(false);
+        desfazer.setContentAreaFilled(false);
+        desfazer.setFocusPainted(false);
+        desfazer.setOpaque(false);
+        desfazer.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 
         //Configuração para aparecer data e hora em JLabel
         data = new JLabel();
@@ -114,35 +122,35 @@ public class TodoList extends JFrame {
         Date dataSistema = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         data.setText(formato.format(dataSistema));
-
         Timer horaSistema = new Timer(1000, new hora());
         horaSistema.start(); 
-
-
-        
 
         // Configuração do painel de entrada
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(caixaInserirTarefa, BorderLayout.CENTER);
         inputPanel.add(addButton, BorderLayout.EAST);
-        // Configuração do painel de botões
+
+        // Configuração do painel de botões -> parte inferior do painel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        buttonPanel.add(deleteButton);
         buttonPanel.add(markDoneButton);
+        buttonPanel.add(btnDeletar);
+        buttonPanel.add(new JLabel("‎‎ ‎ "));
         buttonPanel.add(filterComboBox);
         buttonPanel.add(clearCompletedButton);
         buttonPanel.add(detalhes);
+        buttonPanel.add(desfazer);
         buttonPanel.add(data);
         buttonPanel.add(hora);
-
+        
         // Adiciona os componentes ao painel principal
         mainPanel.add(inputPanel, BorderLayout.NORTH);
         mainPanel.add(new JScrollPane(taskList), BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
         // Adiciona o painel principal à janela
         this.add(mainPanel);
 
-        // ===============================================================
+//===============================================================
         // Tratamento de eventos da aplicação
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -170,9 +178,13 @@ public class TodoList extends JFrame {
             }
         });
 
-        // evento de deletar com o click
-        deleteButton.addActionListener(e -> {
-            metodosTask.deleteTask();
+
+        //evento de clicar para deletar
+         btnDeletar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                metodosTask.deleteTask();
+            }
         });
 
         // evento de deletar a partir do botao delete
@@ -188,6 +200,11 @@ public class TodoList extends JFrame {
             metodosTask.clearCompletedTasks();
         });
 
+        desfazer.addActionListener(e -> {
+            metodosTask.desfazerConcluir();
+                
+        });
+
         detalhes.addActionListener(e -> {
             metodosTask.detalhesTask();
         });
@@ -198,6 +215,14 @@ public class TodoList extends JFrame {
         markDoneButton.addActionListener(e -> {
             metodosTask.concluirTask();
         });
+    }//fecha o construtor
+
+    public JLabel getBtnDeletar() {
+        return btnDeletar;
+    }
+
+    public void setBtnDeletar(JLabel btnDeletar) {
+        this.btnDeletar = btnDeletar;
     }
 
     public void setCaixaInserirTarefa(JTextField caixaInserirTarefa) {
@@ -214,10 +239,6 @@ public class TodoList extends JFrame {
 
     public DefaultListModel<String> getListModel() {
         return listModel;
-    }
-
-    public JButton getDeleteButton() {
-        return deleteButton;
     }
 
     public JButton getMarkDoneButton() {
