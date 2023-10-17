@@ -239,9 +239,12 @@ public class MetodosTask {
             JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
         }
 
-
-
+        
+        
+        
     }
+    
+
 
     public void updateTaskList() {
         // Atualiza a lista de tasks exibida na GUI

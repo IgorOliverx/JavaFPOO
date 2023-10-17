@@ -130,6 +130,8 @@ public class TodoList extends JFrame {
         inputPanel.add(caixaInserirTarefa, BorderLayout.CENTER);
         inputPanel.add(addButton, BorderLayout.EAST);
 
+ 
+    
         // Configuração do painel de botões -> parte inferior do painel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.add(markDoneButton);
