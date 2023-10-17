@@ -185,7 +185,7 @@ public class MetodosTask {
                
             });
     
-        DropTarget dropTarget= new DropTarget(todoList.getBtnDeletar(), DnDConstants.ACTION_COPY, new DropTargetAdapter() {
+        DropTarget alvo= new DropTarget(todoList.getBtnDeletar(), DnDConstants.ACTION_COPY, new DropTargetAdapter() {
             public void drop(DropTargetDropEvent evt) {
                 Transferable tr = evt.getTransferable();
                 if (tr.isDataFlavorSupported(DataFlavor.stringFlavor)) {
