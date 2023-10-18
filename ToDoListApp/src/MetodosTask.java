@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 //bibliotecas de manipulação JSON
 // import com.google.gson.Gson;
 // import com.google.google.gson.JsonObject;
-import java.io.FileReader;
+//import java.io.FileReader;
 
 
 
@@ -169,7 +169,7 @@ public class MetodosTask {
                 Date d = new Date();
                 task.setDataFim(d.getTime());
                 updateTaskList();
-                JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoTarefa() + " segundos",
+                JOptionPane.showMessageDialog(null, "Você concluiu a task em " + task.duracaoHora() + " horas, " + task.duracaoMinuto() + " minutos e " + task.duracaoSegundo() + " segundos",
                         "Concluir tarefa", selectedIndex, imgConcluido);
 
             } else {
