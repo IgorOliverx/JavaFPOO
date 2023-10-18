@@ -33,10 +33,10 @@ public class Task {
         this.dataInicio = dataInicio;
     }
  
-    public double duracaoSegundo(){
-        double duracaoTask = dataFim - dataInicio;
+    public int duracaoSegundo(){
+        int duracaoTask = (int) (dataFim - dataInicio);
         duracaoTask = duracaoTask/1000;
-        return duracaoTask;
+        return duracaoTask; 
     }
 
     public int duracaoMinuto() {

@@ -160,7 +160,7 @@ public class MetodosTask {
         // Marca a task selecionada como concluída
         int selectedIndex = todoList.getTaskList().getSelectedIndex();
 
-        try{
+      
         if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
             Task task = todoList.getTasks().get(selectedIndex);
 
@@ -177,9 +177,8 @@ public class MetodosTask {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
-        }}catch(Exception e){
-              JOptionPane.showMessageDialog(null, "Erro!", "Error", JOptionPane.CANCEL_OPTION);
         }
+        
 
     }
 
@@ -228,7 +227,7 @@ public class MetodosTask {
         for (Task task : todoList.getTasks()) {
             if (filter.equals("Todas") || (filter.equals("Ativas") &&
                     !task.isDone()) || (filter.equals("Concluídas") && task.isDone())) {
-                todoList.getListModel().addElement(task.getDescription());
+                todoList.getListModel().addElement(task.getDescription() + (task.isDone()? "(✔)" : ""));
                 
             }
         }

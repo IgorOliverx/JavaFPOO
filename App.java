@@ -1,7 +1,9 @@
 public class App {
     public static void main(String args[]) {
-        String greeting = "Java World!";
-        String w = greeting.substring(7, 11);
-        System.out.println(w);
+        String s1 = "Olá";
+        String s2 = "Bem-vindo!";
+        s1 = s2;
+        System.out.println("s1: " +s1);
+        System.out.println("s2: " +s2);
      }
 }

@@ -10,10 +10,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 
 /**
- * TodoList
+ * TodoList  
  */
 
 public class TodoList extends JFrame {
@@ -120,10 +121,13 @@ public class TodoList extends JFrame {
         //Configuração para aparecer data e hora em JLabel
         data = new JLabel();
         hora = new JLabel();
+
         Date dataSistema = new Date();
+
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         data.setText(formato.format(dataSistema));
-        Timer horaSistema = new Timer(1000, new hora());
+
+        Timer horaSistema = new Timer(0, new hora());
         horaSistema.start(); 
 
         // Configuração do painel de entrada
@@ -172,7 +176,7 @@ public class TodoList extends JFrame {
 
         // Evento de Concluir tarefa com double click
         taskList.addMouseListener(new MouseAdapter() {
-            @Override
+            
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     metodosTask.concluirTask();
@@ -180,6 +184,7 @@ public class TodoList extends JFrame {
 
             }
         });
+        
           //evento conluir tarefa
         markDoneButton.addActionListener(e -> {
             metodosTask.concluirTask();

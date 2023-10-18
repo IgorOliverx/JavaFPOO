@@ -2,6 +2,7 @@
     "java.debug.settings.onBuildFailureProceed": true,
     "java.project.sourcePaths": [
         "ToDoListApp/src",
-        "ToDoListApp"
+        "ToDoListApp",
+        ""
     ]
 }

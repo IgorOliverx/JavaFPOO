@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+
 public class Login extends JFrame {
 
     //instancia de objetos 
@@ -36,7 +37,7 @@ public class Login extends JFrame {
         //mainPanel.setPreferredSize(d);
         mainPanel.setLayout(new GridBagLayout()); // set do layout -> GridBag
         usernameLabel = new JLabel("Nome de Usuário");
-        usernameField = new JTextField(20); // definindo o tamanho do TextField
+        usernameField = new JTextField(40); // definindo o tamanho do TextField
         loginButton = new JButton("Login");
         loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelLogin = new JLabel(imgLogin);
@@ -69,15 +70,21 @@ public class Login extends JFrame {
         // Adicionando os componentes ao painel com GridBagConstraints para posicioná-los
         gbc.gridx = 0;
         gbc.gridy = 0;
-        mainPanel.add(usernameLabel, gbc);
+        gbc.gridwidth = 1; // redefine a largura da img
+        mainPanel.add(labelLogin, gbc);
+
+        gbc.gridwidth = 1;
         gbc.gridy = 1;
-        mainPanel.add(usernameField, gbc);
+        mainPanel.add(usernameLabel, gbc);
+
         gbc.gridy = 2;
+        mainPanel.add(usernameField, gbc);
+
+        gbc.gridy = 3;
         mainPanel.add(loginButton, gbc);
-        mainPanel.add(labelLogin);
 
         // set do frame
-        this.setSize(600, 450);
+        this.setSize(453, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
