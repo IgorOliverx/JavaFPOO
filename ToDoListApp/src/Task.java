@@ -39,13 +39,13 @@ public class Task {
         return duracaoTask;
     }
 
-    public double duracaoMinuto() {
-        double minutoDuracao = duracaoSegundo() /60 ;
+    public int duracaoMinuto() {
+        int minutoDuracao = (int) duracaoSegundo() /60 ;
         return minutoDuracao;
     }
 
-    public double duracaoHora(){
-        double horaDuracao = duracaoMinuto() /60;
+    public int duracaoHora(){
+        int horaDuracao = duracaoMinuto() /60;
         return horaDuracao;
     }
     public void setDataFim(double dataFim) {

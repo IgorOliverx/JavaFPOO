@@ -10,6 +10,7 @@ public class Login extends JFrame {
 
     //instancia de objetos 
     ImageIcon imgC = new ImageIcon(getClass().getResource("resources/verificar.png"));
+    ImageIcon imgLogin = new ImageIcon(getClass().getResource("resources/login.png"));
    
     
     private JPanel mainPanel;
@@ -17,6 +18,7 @@ public class Login extends JFrame {
     private JButton loginButton;
     private JTextField usernameField;
     private String username;
+    private JLabel labelLogin;
     
     
     public Login() {
@@ -37,6 +39,7 @@ public class Login extends JFrame {
         usernameField = new JTextField(20); // definindo o tamanho do TextField
         loginButton = new JButton("Login");
         loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        labelLogin = new JLabel(imgLogin);
 
         this.add(mainPanel);
 
@@ -63,8 +66,7 @@ public class Login extends JFrame {
         // Estilizando e adicionando os componentes ao Panel
         mainPanel.setBackground(new Color(70, 130, 180));
        
-        // Adicionando os componentes ao painel com GridBagConstraints para deixá-los
-        // centtrtalizados
+        // Adicionando os componentes ao painel com GridBagConstraints para posicioná-los
         gbc.gridx = 0;
         gbc.gridy = 0;
         mainPanel.add(usernameLabel, gbc);
@@ -72,6 +74,7 @@ public class Login extends JFrame {
         mainPanel.add(usernameField, gbc);
         gbc.gridy = 2;
         mainPanel.add(loginButton, gbc);
+        mainPanel.add(labelLogin);
 
         // set do frame
         this.setSize(600, 450);
