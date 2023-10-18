@@ -5,8 +5,7 @@ public class App {
     // new GUISwingJOptionPaneExemplo();
     //new JFrameUtility();
 
-    new ExKey();
-
+    
 
     }
 }
