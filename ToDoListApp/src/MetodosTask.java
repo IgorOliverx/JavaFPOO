@@ -17,20 +17,26 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+
+//bibliotecas de manipulação JSON
+// import com.google.gson.Gson;
+// import com.google.google.gson.JsonObject;
+import java.io.FileReader;
+
+
 
 public class MetodosTask {
+
     ImageIcon imgConcluido = new ImageIcon(getClass().getResource("resources/verificar.png"));
 
+    //criando atributos de instancias privadas -> serve para poder pegar metodos de outra classe
     private TodoList todoList;
     private Login login;
     private Detalhes detalhes;
+    
 
+    //construtor exigindo parametros
     public MetodosTask(TodoList todoList) {
         this.todoList = todoList;
     }
@@ -50,16 +56,17 @@ public class MetodosTask {
         } else {
             JOptionPane.showMessageDialog(null, "Insira seu nome corretamente");
         }
-
     }
+
 
     public void exibirStatus(String message) {
         JLabel status = new JLabel(message);
         JOptionPane janela = new JOptionPane(status, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null,
-                new Object[] {}, null);
+                new Object[] {}, null);//Personalizando componentes do JOptionPane
 
-        JDialog caixa = janela.createDialog("Status");
-        caixa.setModal(false);
+                //Criando uma janela e a definindo como falsa
+        JDialog caixa = janela.createDialog("Status"); //Jdialog é usado para interações -> modular
+        caixa.setModal(true);//modal true faz com que nada possa ser feito até a janela fechar
 
         int delay = 1000;
 
@@ -71,7 +78,7 @@ public class MetodosTask {
         });
 
         timer.setRepeats(false); // Apenas um único disparo
-        timer.start();
+        timer.start();//inicia o delay a partir do clique com a ação
         caixa.setVisible(true); // Exibe o JOptionPane
     }
 
@@ -79,11 +86,16 @@ public class MetodosTask {
     public void adicionarTarefa() {
         // Adiciona uma nova task à lista de tasks
         String taskDescription = todoList.getCaixaInserirTarefa().getText().trim();// remove espaços vazios
+       try{
         if (!taskDescription.isEmpty()) {
             Task newTask = new Task(taskDescription);
             todoList.getTasks().add(newTask);
             updateTaskList();
             todoList.getCaixaInserirTarefa().setText("");
+        }else{
+             JOptionPane.showMessageDialog(null, "Não é possível inserir tarefas vazias!", null, JOptionPane.CANCEL_OPTION);
+        }}catch(Exception e){
+              JOptionPane.showMessageDialog(null, "Erro!", "Error", JOptionPane.CANCEL_OPTION);
         }
     }
 
@@ -117,14 +129,19 @@ public class MetodosTask {
 
         int selectedIndex = todoList.getTaskList().getSelectedIndex();// marca os indices das tarefas
 
+        try{
         if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
             Detalhes detalhe = new Detalhes();
             detalhe.setVisible(true);
+        }else{
+           JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
+        }}catch(Exception e ){
+              JOptionPane.showMessageDialog(null, "Erro!", "Error", JOptionPane.CANCEL_OPTION);
         }
 
     }
 
-    public void salvarDetalhesTask() {
+    public void salvarDetalhesTask() { //Não consegui implementar a funcionalidade
         int selectedIndex = todoList.getTaskList().getSelectedIndex();// marca os indices das tarefas
         String detalhesDaTask = detalhes.getCaixaInserirDetalhes().getText().trim();
 
@@ -134,8 +151,7 @@ public class MetodosTask {
 
             DetalhesTask newDescricao = new DetalhesTask(detalhesDaTask);
             detalhes.getDescricao().add(newDescricao);
-            // updateTaskList();
-            // detalhes.getCaixaInserirDetalhes().setText("");
+           
 
         }
     }
@@ -144,6 +160,7 @@ public class MetodosTask {
         // Marca a task selecionada como concluída
         int selectedIndex = todoList.getTaskList().getSelectedIndex();
 
+        try{
         if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
             Task task = todoList.getTasks().get(selectedIndex);
 
@@ -160,39 +177,45 @@ public class MetodosTask {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Nenhuma tarefa selecionada!", null, JOptionPane.CANCEL_OPTION);
+        }}catch(Exception e){
+              JOptionPane.showMessageDialog(null, "Erro!", "Error", JOptionPane.CANCEL_OPTION);
         }
 
     }
 
     public void arrastarDeletar(TodoList todoList) {
-        DragSource dragText = DragSource.getDefaultDragSource();
+        DragSource dragText = DragSource.getDefaultDragSource(); //DragSource define a origem de onde vou poder arrastar o conteudo
 
-   
-        DragGestureRecognizer arrastar = dragText.createDefaultDragGestureRecognizer(
+        //DragGesturaRecognizer que faz o reconhecimento do movimento de arrastar
+        DragGestureRecognizer arrastar = dragText.createDefaultDragGestureRecognizer( //indicar parametros do que for selecionado
             todoList.getTaskList(), DnDConstants.ACTION_COPY, new DragGestureListener() {
+
                 public void dragGestureRecognized(DragGestureEvent e) {
+                    //seleciona o indice da task
                     int selectedIndex = todoList.getTaskList().getSelectedIndex();
+                    //verificação
                     if (selectedIndex >= 0 && selectedIndex < todoList.getTasks().size()) {
                         String itemSelecionado = todoList.getListModel().getElementAt(selectedIndex);
                         Transferable transferencia = new StringSelection(itemSelecionado);
     
-                        e.startDrag(DragSource.DefaultCopyDrop, transferencia, new DragSourceAdapter() {
+                        e.startDrag(DragSource.DefaultCopyDrop, transferencia, new DragSourceAdapter() { //Inicia a operação de arrastar com o item ja selecionado
     
                         });
                     }
-                }
+                }                       
     
                
             });
-    
+
+        //Define o alvo -> até onde vou arrastar para realizar a ação
         DropTarget alvo= new DropTarget(todoList.getBtnDeletar(), DnDConstants.ACTION_COPY, new DropTargetAdapter() {
-            public void drop(DropTargetDropEvent evt) {
-                Transferable tr = evt.getTransferable();
-                if (tr.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+            public void drop(DropTargetDropEvent e) {
+                Transferable tr = e.getTransferable(); //guarda o conteúdo que for selecionado "arrastado"
+                if (tr.isDataFlavorSupported(DataFlavor.stringFlavor)) { //verifica se o que está sendo "solto" é uma string
                     deleteTask();
-                    evt.dropComplete(true);
+                    e.dropComplete(true);
                 } else {
-                    evt.rejectDrop();
+                    e.rejectDrop();
                 }
             }
         });
@@ -206,6 +229,7 @@ public class MetodosTask {
             if (filter.equals("Todas") || (filter.equals("Ativas") &&
                     !task.isDone()) || (filter.equals("Concluídas") && task.isDone())) {
                 todoList.getListModel().addElement(task.getDescription());
+                
             }
         }
     }
@@ -218,6 +242,7 @@ public class MetodosTask {
                 completedTasks.add(task);
             }
         }
+
         todoList.getTasks().removeAll(completedTasks);
         updateTaskList();
     }

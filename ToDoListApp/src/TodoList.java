@@ -25,7 +25,7 @@ public class TodoList extends JFrame {
     ImageIcon imgAdd = new ImageIcon(getClass().getResource("resources/add.png"));
      ImageIcon imgRecarregar = new ImageIcon(getClass().getResource("resources/reload.png"));
    
-
+     //atributos da aplicação
     private JPanel mainPanel;
     private JTextField caixaInserirTarefa;
     private JButton addButton, markDoneButton, clearCompletedButton, desfazer, detalhes;
@@ -77,6 +77,7 @@ public class TodoList extends JFrame {
         // 'botao' de deletar com a lixeira e configurações 
         btnDeletar = new JLabel(imgLixeira);
         btnDeletar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        //chamando o metodo de arrastarDeletar(o evento foi feito na própria classe)
         metodosTask.arrastarDeletar(this);
 
         // botao de concluir configurações pro botao ser apenas o icon
@@ -179,7 +180,10 @@ public class TodoList extends JFrame {
 
             }
         });
-
+          //evento conluir tarefa
+        markDoneButton.addActionListener(e -> {
+            metodosTask.concluirTask();
+        });
 
         //evento de clicar para deletar
          btnDeletar.addMouseListener(new MouseAdapter() {
@@ -198,26 +202,30 @@ public class TodoList extends JFrame {
             }
         });
 
+        //evento para limpar tasks completadas
         clearCompletedButton.addActionListener(e -> {
             metodosTask.clearCompletedTasks();
         });
 
+        //evento para desfazer concluir
         desfazer.addActionListener(e -> {
             metodosTask.desfazerConcluir();
                 
         });
 
+        //evento de detalhes da task(sem funcionamento)
         detalhes.addActionListener(e -> {
             metodosTask.detalhesTask();
         });
 
+        //evento de filtrar tarefas
         filterComboBox.addActionListener(e -> {
             metodosTask.filterTasks();
         });
-        markDoneButton.addActionListener(e -> {
-            metodosTask.concluirTask();
-        });
+      
     }//fecha o construtor
+
+    //metodos especiais
 
     public JLabel getBtnDeletar() {
         return btnDeletar;
@@ -276,9 +284,7 @@ public class TodoList extends JFrame {
         new Login();
     }
 
-    /**
-     * InnerTodoList
-     */
+   //classe que pega a hora e formata ela para o padrão
     public class hora implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
