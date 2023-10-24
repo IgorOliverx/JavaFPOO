@@ -1,11 +1,7 @@
 package GUISerializacao.src;
 
-/**
- * App
- */
 public class App {
-
-    public static void main(String[] args) {
-      new JanelaP();
+    public static void main(String[] args) throws Exception {
+        new MainFrame().run();
     }
 }

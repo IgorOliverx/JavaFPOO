@@ -2,12 +2,14 @@ package GUISerializacao.src;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,29 +19,27 @@ public class CadastroUsuarios extends JPanel {
     private JTextField inputIdade;
     private DefaultTableModel tableModel;
     private JTable table;
-    private List<Usuario> usuarios = new ArrayList<>();
+    public List<Usuario> usuarios = new ArrayList<>();
     private int linhaSelecionada = -1;
 
     public CadastroUsuarios() {
-        this.setSize(600, 300);
-        this.setVisible(true);
-
+        
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Nome");
         tableModel.addColumn("Idade");
-        table = new JTable(tableModel);
 
+        table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
+
         inputNome = new JTextField(20);
         inputIdade = new JTextField(5);
-
         JButton cadastrarButton = new JButton("Cadastrar");
         JButton atualizarButton = new JButton("Atualizar");
         JButton apagarButton = new JButton("Apagar");
         JButton apagarTodosButton = new JButton("Apagar Todos");
         JButton salvarButton = new JButton("Salvar");
-        JPanel inputPanel = new JPanel();
 
+        JPanel inputPanel = new JPanel();
         inputPanel.add(new JLabel("Nome:"));
         inputPanel.add(inputNome);
         inputPanel.add(new JLabel("Idade:"));
@@ -49,27 +49,18 @@ public class CadastroUsuarios extends JPanel {
         inputPanel.add(apagarButton);
         inputPanel.add(apagarTodosButton);
         inputPanel.add(salvarButton);
+
         setLayout(new BorderLayout());
         add(inputPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
-
-
-
-        OperacoesUsuarios operacoes = new OperacoesUsuarios(usuarios, tableModel, table);
-        cadastrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                operacoes.cadastrarUsuario(inputNome.getText(), inputIdade.getText());
-                inputNome.setText("");
-                inputIdade.setText("");
-            }
-        });
-
+        
         File arquivo = new File("dados.txt");
+        List<Usuario> usuarios = new ArrayList<>();
         if (arquivo.exists()) {
             usuarios = Serializacao.deserializar("dados.txt");
-            operacoes.atualizarTabelas();
+            atualizarTabela();
         }
+        
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -81,35 +72,54 @@ public class CadastroUsuarios extends JPanel {
                 }
             }
         });
-        
+
+        OperacoesUsuarios operacoes = new OperacoesUsuarios(usuarios, tableModel, table);
+
+        cadastrarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                operacoes.cadastrarUsuario(inputNome.getText(), inputIdade.getText());
+                inputNome.setText("");
+                inputIdade.setText("");
+            }
+        });
+
         atualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operacoes.atualizarUsuario(linhaSelecionada, inputNome.getText(),
-
-                        inputIdade.getText());
-
+                operacoes.atualizarUsuario(linhaSelecionada, inputNome.getText(), inputIdade.getText());
             }
         });
+
         apagarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 operacoes.apagarUsuario(linhaSelecionada);
             }
         });
+
         apagarTodosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 operacoes.apagarTodosUsuarios();
             }
         });
+
         salvarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 operacoes.salvarUsuarios();
-
             }
         });
     }
 
-   
+    private void atualizarTabela() {
+        tableModel.setRowCount(0);
+        
+        for (Usuario usuario : usuarios) {
+            tableModel.addRow(new Object[] { usuario.getNome(), usuario.getIdade() });
+        }
+    }
+    
+
 }
