@@ -4,14 +4,16 @@ public class Usuario {
     private String endereco;
     private String cpf;
     private int idade;
+    private String senha;
 
 
-    public Usuario(String nome, String sobrenome, String endereco, String cpf, int idade) {
+    public Usuario(String nome, String sobrenome, String endereco, String cpf, int idade, String senha) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.endereco = endereco;
         this.cpf = cpf;
         this.idade = idade;
+        this.senha = senha;
     }
 
     public Usuario(){
@@ -36,6 +38,9 @@ public class Usuario {
 
     public int getIdade() {
         return idade;
+    }
+    public String getSenha(){
+        return senha;
     }
 
     
