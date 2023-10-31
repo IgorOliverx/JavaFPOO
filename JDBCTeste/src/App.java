@@ -1,12 +1,10 @@
-package com.example;
-
-
+package JDBCTeste.src;
 
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Main {
+public class App {
     public static void main(String[] args) throws Exception {
         try{
             Statement s;
@@ -16,7 +14,7 @@ public class Main {
 
             Connection c = DriverManager.getConnection(url, usuario, senha);
             s = c.createStatement();
-            s.executeQuery("SELECT * FROM public.contato INSERT INTO contato VALUES ('1', 'Igor', 'iguito@gmail.com');");
+            s.executeQuery("INSERT INTO contato VALUES ('2', 'Raphael veiga', 'veiguinha23Manguito@gmail.com');");
 
             c.close();
         }catch(Exception e){

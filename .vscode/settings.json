@@ -4,5 +4,10 @@
         "ToDoListApp/src",
         "ToDoListApp",
         ""
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "JDBCTeste/lib/postgresql-42.6.0.jar"
     ]
 }
