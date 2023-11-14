@@ -44,8 +44,7 @@ public class ConnectionFactory {
     }
 
     // Método para fechar a conexão, o objeto PreparedStatement e o ResultSet
-    public static void closeConnection(Connection connection, PreparedStatement stmt,
-            ResultSet rs) {
+    public static void closeConnection(Connection connection, PreparedStatement stmt, ResultSet rs) {
         closeConnection(connection, stmt);
         try {
             if (rs != null) {
