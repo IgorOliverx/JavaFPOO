@@ -7,6 +7,9 @@ public class CardsLayout {
     private String buttonPanel = "Card com JButtons";
     private String textPanel = "Card com JTextField";
 
+    ImageIcon imagem = new ImageIcon(getClass().getResource("Concessionária.png"));
+        JLabel label = new JLabel(imagem);
+
     public CardsLayout() {
         JFrame jframe = new JFrame();
         JPanel jpanel1 = new JPanel();
