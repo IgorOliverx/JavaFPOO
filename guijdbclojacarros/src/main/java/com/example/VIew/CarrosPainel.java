@@ -1,6 +1,7 @@
-package com.example.VIew;
+package com.example.View;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,10 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 import com.example.Connection.CarrosDAO;
 import com.example.Controller.CarrosControl;
@@ -32,6 +37,7 @@ public class CarrosPainel extends JPanel {
     private DefaultTableModel tableModel;
     private int linhaSelecionada = -1;
 
+    
     // Construtor(GUI-JPanel)
     public CarrosPainel() {
         super();
@@ -90,37 +96,44 @@ public class CarrosPainel extends JPanel {
             }
         });
 
-        CarrosControl operacoes = new CarrosControl(carros, tableModel, table);
         // Configura a ação do botão "cadastrar" para adicionar um novo registro no
-        // banco
-        // de dados
+        // banco de dados
+        CarrosControl operacoes = new CarrosControl(carros, tableModel, table);
 
+        // ---- AÇÃO DE CADASTRAR CARRO ----
         cadastrar.addActionListener(e -> {
-            // Chama o método "cadastrar" do objeto operacoes com os valores dos
-            // campos de entrada
+            // Chama o método "cadastrar" do objeto operacoes com os valores dos campos de
+            // entrada
+            try {
+                int ano = Integer.parseInt(carAnoField.getText()); //fazendo verificação de ano
 
-            try{ 
-            int ano = Integer.parseInt(carAnoField.getText());
-            int valor = Integer.parseInt(carValorField.getText());
-             if (ano > 1900 && ano <= 2024) {
+                String car = carValorField.getText();//transformando o valor do input em String
+                double num = Double.parseDouble(car);//Passando a string para double
+                Locale br = new Locale("pt", "BR");//Padrao brasileiro
+                NumberFormat nf = NumberFormat.getCurrencyInstance(br);//numberFormat com a nossa localizacao
+                String valorF = nf.format(num);//valorfinal transformado em string depois do tratamento
+                if (ano > 1900 && ano <= 2024) {
+
+                    //metodo de cadastro
                 operacoes.cadastrar(carMarcaField.getText(), carModeloField.getText(),
-                        carAnoField.getText(), carPlacaField.getText(), carValorField.getText());
-                // Limpa os campos de entrada após a operação de cadastro
-                carMarcaField.setText("");
-                carModeloField.setText("");
-                carAnoField.setText("");
-                carPlacaField.setText("");
-                carValorField.setText("");
-             }else {
-                JOptionPane.showMessageDialog(null, "A data informada é inválida", "", JOptionPane.WARNING_MESSAGE);
-            }
-        }catch(Exception erro){
+                            carAnoField.getText(), carPlacaField.getText(), valorF);
+                    // Limpa os campos de entrada após a operação de cadastro
+                    carMarcaField.setText("");
+                    carModeloField.setText("");
+                    carAnoField.setText("");
+                    carPlacaField.setText("");
+                    carValorField.setText("");
+                } 
+                else {
+                    JOptionPane.showMessageDialog(null, "A data informada é inválida", "", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, "Dados inseridos inválidos", "", JOptionPane.WARNING_MESSAGE);
             }
         });
 
-        // Configura a ação do botão "editar" para atualizar um registro no banco de
-        // dados
+
+        // ---- AÇÃO DE EDITAR CARRO ----
         editar.addActionListener(e -> {
             // Chama o método "atualizar" do objeto operacoes com os valores dos
             // campos de entrada
@@ -133,6 +146,11 @@ public class CarrosPainel extends JPanel {
             carPlacaField.setText("");
             carValorField.setText("");
         });
+
+
+
+
+
 
         // Configura a ação do botão "apagar" para excluir um registro no banco de dados
         apagar.addActionListener(e -> {
@@ -161,4 +179,13 @@ public class CarrosPainel extends JPanel {
                     carro.getAno(), carro.getPlaca(), carro.getValor() });
         }
     }
+    //metodo para verificacao de campos
+    private boolean verificacaoVazio(JTextField campoInput){
+        return campoInput.getText() != null && !campoInput.getText().trim().isEmpty();
+        //se o campo for difente de nulo e se o campo pode ter um trecho retirado(isso acontece
+        // pq o valor padrão do jtextfield nao e nulo mas equivale a "")
+    }
+
+  
+
 }

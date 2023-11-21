@@ -1,6 +1,6 @@
-package com.example.VIew.ViewEvents;
+package com.example.View.ViewEvents;
 
-import com.example.VIew.CarrosPainel;
+import com.example.View.CarrosPainel;
 
 public class EventsCarros {
    

@@ -1,4 +1,4 @@
-package com.example.VIew;
+package com.example.View;
 
 import java.awt.BorderLayout;
 

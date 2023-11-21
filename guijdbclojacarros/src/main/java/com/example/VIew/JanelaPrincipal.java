@@ -1,4 +1,4 @@
-package com.example.VIew;
+package com.example.View;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
@@ -18,9 +18,8 @@ public class JanelaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ClientesPainel tab2 = new ClientesPainel();
         jTPane.add("Clientes", tab2);
-
-       
-
+        VendasView tab3 = new VendasView();
+        jTPane.add("Vendas",tab3);
     }
 
     // métodos para tornar a janela visível

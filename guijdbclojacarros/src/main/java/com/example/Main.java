@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.VIew.JanelaPrincipal;
+import com.example.View.JanelaPrincipal;
 
 public class Main {
     public static void main(String[] args) {
