@@ -37,7 +37,6 @@ public class CarrosPainel extends JPanel {
     private DefaultTableModel tableModel;
     private int linhaSelecionada = -1;
 
-    
     // Construtor(GUI-JPanel)
     public CarrosPainel() {
         super();
@@ -76,6 +75,10 @@ public class CarrosPainel extends JPanel {
         table = new JTable(tableModel);
         jSPane.setViewportView(table);
 
+        // criando verificacao
+        boolean camposObrigatorios = carPlacaField.getText().isEmpty() || carMarcaField.getText().isEmpty()
+                || carModeloField.getText().isEmpty();
+
         // criar a tabela caso nao exista
         new CarrosDAO().criaTabela();
         // atualizar a tabela na abertura da janela
@@ -105,17 +108,19 @@ public class CarrosPainel extends JPanel {
             // Chama o método "cadastrar" do objeto operacoes com os valores dos campos de
             // entrada
             try {
-                int ano = Integer.parseInt(carAnoField.getText()); //fazendo verificação de ano
+                int ano = Integer.parseInt(carAnoField.getText()); // fazendo verificação de ano
+                String car = carValorField.getText();// transformando o valor do input em String
+                double num = Double.parseDouble(car);// Passando a string para double
+                Locale br = new Locale("pt", "BR");// Padrao brasileiro
+                NumberFormat nf = NumberFormat.getCurrencyInstance(br);// numberFormat com a nossa localizacao
+                String valorF = nf.format(num);// valorfinal transformado em string depois do tratamento
 
-                String car = carValorField.getText();//transformando o valor do input em String
-                double num = Double.parseDouble(car);//Passando a string para double
-                Locale br = new Locale("pt", "BR");//Padrao brasileiro
-                NumberFormat nf = NumberFormat.getCurrencyInstance(br);//numberFormat com a nossa localizacao
-                String valorF = nf.format(num);//valorfinal transformado em string depois do tratamento
+                //instrução 1 do bloco de verificação
                 if (ano > 1900 && ano <= 2024) {
 
-                    //metodo de cadastro
-                operacoes.cadastrar(carMarcaField.getText(), carModeloField.getText(),
+                    //CORRIGIR MODELO ENVIANDO MESMO SEM ESTAR PREENCHIDO
+                    // metodo de cadastro
+                    operacoes.cadastrar(carMarcaField.getText(), carModeloField.getText(),
                             carAnoField.getText(), carPlacaField.getText(), valorF);
                     // Limpa os campos de entrada após a operação de cadastro
                     carMarcaField.setText("");
@@ -123,15 +128,16 @@ public class CarrosPainel extends JPanel {
                     carAnoField.setText("");
                     carPlacaField.setText("");
                     carValorField.setText("");
-                } 
-                else {
-                    JOptionPane.showMessageDialog(null, "A data informada é inválida", "", JOptionPane.WARNING_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "A data informada é inválida!", "",
+                            JOptionPane.WARNING_MESSAGE);
                 }
             } catch (Exception erro) {
-                JOptionPane.showMessageDialog(null, "Dados inseridos inválidos", "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Por favor, preencha corretamente os dados", "",
+                        JOptionPane.WARNING_MESSAGE);
             }
         });
-
 
         // ---- AÇÃO DE EDITAR CARRO ----
         editar.addActionListener(e -> {
@@ -146,11 +152,6 @@ public class CarrosPainel extends JPanel {
             carPlacaField.setText("");
             carValorField.setText("");
         });
-
-
-
-
-
 
         // Configura a ação do botão "apagar" para excluir um registro no banco de dados
         apagar.addActionListener(e -> {
@@ -179,13 +180,13 @@ public class CarrosPainel extends JPanel {
                     carro.getAno(), carro.getPlaca(), carro.getValor() });
         }
     }
-    //metodo para verificacao de campos
-    private boolean verificacaoVazio(JTextField campoInput){
+
+    // metodo para verificacao de campos
+    private boolean verificacaoVazio(JTextField campoInput) {
         return campoInput.getText() != null && !campoInput.getText().trim().isEmpty();
-        //se o campo for difente de nulo e se o campo pode ter um trecho retirado(isso acontece
+        // se o campo for difente de nulo e se o campo pode ter um trecho retirado(isso
+        // acontece
         // pq o valor padrão do jtextfield nao e nulo mas equivale a "")
     }
-
-  
 
 }
