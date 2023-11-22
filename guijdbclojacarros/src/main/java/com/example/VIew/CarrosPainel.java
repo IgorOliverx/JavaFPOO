@@ -25,7 +25,6 @@ import com.example.Connection.CarrosDAO;
 import com.example.Controller.CarrosControl;
 import com.example.Model.Carros;
 
-
 public class CarrosPainel extends JPanel {
     // Atributos(componentes)
     private JButton cadastrar, apagar, editar, limpar;
@@ -114,10 +113,10 @@ public class CarrosPainel extends JPanel {
                 NumberFormat nf = NumberFormat.getCurrencyInstance(br);// numberFormat com a nossa localizacao
                 String valorF = nf.format(num);// valorfinal transformado em string depois do tratamento
 
-                //instrução 1 do bloco de verificação
+                // instrução 1 do bloco de verificação
                 if (ano > 1900 && ano <= 2024) {
 
-                    //CORRIGIR MODELO ENVIANDO MESMO SEM ESTAR PREENCHIDO
+                    // CORRIGIR MODELO ENVIANDO MESMO SEM ESTAR PREENCHIDO
                     // metodo de cadastro
                     operacoes.cadastrar(carMarcaField.getText(), carModeloField.getText(),
                             carAnoField.getText(), carPlacaField.getText(), valorF);
@@ -179,7 +178,5 @@ public class CarrosPainel extends JPanel {
                     carro.getAno(), carro.getPlaca(), carro.getValor() });
         }
     }
-
-
 
 }

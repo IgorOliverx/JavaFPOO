@@ -24,7 +24,7 @@ public class JanelaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ClientesPanel tab2 = new ClientesPanel();
         jTPane.add("Clientes", tab2);
-        VendasView tab3 = new VendasView();
+        VendasPainel tab3 = new VendasPainel();
         jTPane.add("Vendas",tab3);
         Login tab4 = new Login();
         jTPane.add("Login", tab4);

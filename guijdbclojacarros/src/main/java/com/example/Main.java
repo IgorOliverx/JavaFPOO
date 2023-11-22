@@ -5,6 +5,6 @@ import com.example.View.JanelaPrincipal;
 
 public class Main {
     public static void main(String[] args) {
-        new ClientesDAO().criaTabela(); 
+        new JanelaPrincipal().run();
    }
 }
