@@ -25,7 +25,6 @@ import com.example.Connection.CarrosDAO;
 import com.example.Controller.CarrosControl;
 import com.example.Model.Carros;
 
-import javafx.event.ActionEvent;
 
 public class CarrosPainel extends JPanel {
     // Atributos(componentes)
@@ -181,12 +180,6 @@ public class CarrosPainel extends JPanel {
         }
     }
 
-    // metodo para verificacao de campos
-    private boolean verificacaoVazio(JTextField campoInput) {
-        return campoInput.getText() != null && !campoInput.getText().trim().isEmpty();
-        // se o campo for difente de nulo e se o campo pode ter um trecho retirado(isso
-        // acontece
-        // pq o valor padrão do jtextfield nao e nulo mas equivale a "")
-    }
+
 
 }

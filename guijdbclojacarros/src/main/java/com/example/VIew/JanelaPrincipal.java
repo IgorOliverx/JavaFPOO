@@ -20,6 +20,8 @@ public class JanelaPrincipal extends JFrame {
         jTPane.add("Clientes", tab2);
         VendasView tab3 = new VendasView();
         jTPane.add("Vendas",tab3);
+        Login tab4 = new Login();
+        jTPane.add("Login", tab4);
     }
 
     // métodos para tornar a janela visível
