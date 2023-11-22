@@ -2,26 +2,34 @@ package com.example.View;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
+import javax.swing.plaf.DimensionUIResource;
+
+import com.example.View.*;
+
+import javafx.geometry.Dimension2D;
 
 public class JanelaPrincipal extends JFrame {
     // criação do tabbedPane para incluir as tabs
     private JTabbedPane jTPane;
 
     public JanelaPrincipal() {
+        setResizable(false);
         jTPane = new JTabbedPane();
         add(jTPane);
         // criandos as tabs
         // tab1 carros
         CarrosPainel tab1 = new CarrosPainel();
         jTPane.add("Carros", tab1);
-        setBounds(100, 100, 600, 600);
+        setBounds(200, 200, 832, 490);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ClientesPainel tab2 = new ClientesPainel();
+        ClientesPanel tab2 = new ClientesPanel();
         jTPane.add("Clientes", tab2);
         VendasView tab3 = new VendasView();
         jTPane.add("Vendas",tab3);
         Login tab4 = new Login();
         jTPane.add("Login", tab4);
+
+        
     }
 
     // métodos para tornar a janela visível

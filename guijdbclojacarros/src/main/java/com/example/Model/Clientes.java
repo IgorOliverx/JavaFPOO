@@ -1,36 +1,54 @@
 package com.example.Model;
 public class Clientes {
     private String nome;
-    private int idade;
-    private String status;
+    private String cpf;
+    private String telefone;
+    private String email;
 
 
-    public Clientes(String nome, int idade, String status) {
+    //construtor inicializando atributos
+    public Clientes(String nome, String cpf, String telefone, String email) {
         this.nome = nome;
-        this.idade = idade;
-        this.status = status;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
     }
 
+    //construtor vazio
+    public Clientes(){
+
+    }
 
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public int getIdade() {
-        return idade;
+
+    public String getCpf() {
+        return cpf;
     }
-    public void setIdade(int idade) {
-        this.idade = idade;
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
-    public String getStatus() {
-        return status;
+
+    public String getTelefone() {
+        return telefone;
     }
-    public void setStatus(String status) {
-        this.status = status;
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
-    
-    //Construtor da Classe
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
 }
