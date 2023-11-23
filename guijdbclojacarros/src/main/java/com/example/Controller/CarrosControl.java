@@ -58,4 +58,9 @@ public CarrosControl(){}
         atualizarTabela(); // Atualiza a tabela de exibição após a exclusão
     }
 
+
+    public void verificarCondicoes(){
+        
+    }
+
 }

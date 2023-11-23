@@ -1,17 +1,17 @@
 package com.example.Model;
 public class Clientes {
     private String nome;
-    private String cpf;
-    private String telefone;
     private String email;
+    private String telefone;
+     private String cpf;
 
 
     //construtor inicializando atributos
-    public Clientes(String nome, String cpf, String telefone, String email) {
+    public Clientes(String nome, String email, String telefone, String cpf) {
         this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
         this.email = email;
+        this.telefone = telefone;
+        this.cpf = cpf;
     }
 
     //construtor vazio

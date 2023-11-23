@@ -1,6 +1,5 @@
 package com.example;
 
-import com.example.Connection.ClientesDAO;
 import com.example.View.JanelaPrincipal;
 
 public class Main {

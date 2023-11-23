@@ -20,7 +20,7 @@ public class ClientesDAO {
 
      // criar Tabela
    public void criaTabela() {
-    String sql = "CREATE TABLE IF NOT EXISTS clientes (NOME VARCHAR(255),EMAIL VARCHAR(255),TELEFONE VARCHAR(255),CPF VARCHAR(255) PRIMARY KEY)";
+    String sql = "CREATE TABLE IF NOT EXISTS clientes (NOME VARCHAR(255),EMAIL VARCHAR(255),TELEFONE VARCHAR(255),CPF VARCHAR(25) PRIMARY KEY)";
     try (Statement stmt = this.connection.createStatement()) {
        stmt.execute(sql);
        System.out.println("Tabela criada com sucesso.");
@@ -92,24 +92,23 @@ public class ClientesDAO {
 
   // Atualizar dados no banco
   public void atualizar(String nome, String cpf, String telefone, String email) {
-    PreparedStatement stmt = null;
-    // Define a instrução SQL parametrizada para atualizar dados pela placa
-    String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ? WHERE cpf = ?";
-    try {
-       stmt = connection.prepareStatement(sql);
-       stmt.setString(1, nome);
-       stmt.setString(2, email);
-       stmt.setString(3, telefone);
-       // placa é chave primaria não pode ser alterada.
-       stmt.setString(5, cpf);
-       stmt.executeUpdate();
-       System.out.println("Dados atualizados com sucesso");
-    } catch (SQLException e) {
-       throw new RuntimeException("Erro ao atualizar dados no banco de dados.", e);
-    } finally {
-       ConnectionFactory.closeConnection(connection, stmt);
-    }
- }
+   PreparedStatement stmt = null;
+   String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ? WHERE cpf = ?";
+   try {
+      stmt = connection.prepareStatement(sql);
+      stmt.setString(1, nome);     // Nome
+      stmt.setString(2, email);    // Email
+      stmt.setString(3, telefone); // Telefone
+      stmt.setString(4, cpf);      // Chave (CPF)
+      stmt.executeUpdate();
+      System.out.println("Dados atualizados com sucesso");
+   } catch (SQLException e) {
+      throw new RuntimeException("Erro ao atualizar dados no banco de dados.", e);
+   } finally {
+      ConnectionFactory.closeConnection(connection, stmt);
+   }
+}
+
 
 
    // Apagar dados do banco

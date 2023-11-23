@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import com.example.Model.Clientes;
 import com.example.Connection.CarrosDAO;
 import com.example.Connection.ClientesDAO;
+
 public class ClientesControl {
      private List<Clientes> clientes;
     private DefaultTableModel tableModel;
@@ -31,22 +32,22 @@ public class ClientesControl {
         // Obtém os clientes atualizados do banco de dados
         for (Clientes cliente : clientes) {
             // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEmail(),
+            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getCpf(),
 
-                    cliente.getTelefone(), cliente.getCpf()});
+                    cliente.getTelefone(), cliente.getEmail()});
         }
     }
 
      // Método para cadastrar um novo cliente no banco de dados
-     public void cadastrar(String nome, String email, String telefone, String cpf) {
-        new ClientesDAO().cadastrar(nome, email, telefone, cpf);
+     public void cadastrar(String nome, String cpf, String telefone, String email) {
+        new ClientesDAO().cadastrar(nome, cpf, telefone, email);
         // Chama o método de cadastro no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após o cadastro
     }
 
      // Método para atualizar os dados de um cliente no banco de dados
-    public void atualizar(String nome, String email, String telefone, String cpf) {
-        new ClientesDAO().atualizar(nome, email, telefone, cpf);
+    public void atualizar(String nome, String cpf, String telefone, String email) {
+        new ClientesDAO().atualizar(nome, cpf, telefone, email);
         // Chama o método de atualização no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após a atualização
     }

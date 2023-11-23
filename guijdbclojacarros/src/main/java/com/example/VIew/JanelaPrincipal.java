@@ -6,7 +6,7 @@ import javax.swing.plaf.DimensionUIResource;
 
 import com.example.View.*;
 
-import javafx.geometry.Dimension2D;
+
 
 public class JanelaPrincipal extends JFrame {
     // criação do tabbedPane para incluir as tabs
@@ -20,7 +20,7 @@ public class JanelaPrincipal extends JFrame {
         // tab1 carros
         CarrosPainel tab1 = new CarrosPainel();
         jTPane.add("Carros", tab1);
-        setBounds(200, 200, 832, 490);
+        setBounds(200, 200, 832, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ClientesPanel tab2 = new ClientesPanel();
         jTPane.add("Clientes", tab2);
@@ -28,6 +28,9 @@ public class JanelaPrincipal extends JFrame {
         jTPane.add("Vendas",tab3);
         Login tab4 = new Login();
         jTPane.add("Login", tab4);
+      //  ClientesPa tab5 = new ClientesPa();
+       // jTPane.add("Funciona", tab5);
+
 
         
     }

@@ -20,11 +20,39 @@ import com.example.Model.Clientes;
  * @author DevTarde_A - Igor
  */
 public class ClientesPanel extends javax.swing.JPanel {
+    
+    //Atributos da aplicação -> Jeito do netbeans
+    private javax.swing.JTextField InputCpf;
+    private javax.swing.JTextField InputEmail;
+    private javax.swing.JTextField InputNome;
+    private javax.swing.JTextField InputTelefone;
+    private javax.swing.JButton bntEditar;
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnCadastro;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JTextField inputPesquisar;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel labelCpf;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelTelefone;
+    private javax.swing.JLabel labelTitulo;
+    private DefaultTableModel tableModel;
+    private JTable table;
+    private int linhaSelecionada = -1;
+
 
     private List<Clientes> clientes;
 
     /**
-     * Creates new form ClientesPanel
+     * Serve para criar o ClientesPanel.
      */
     public ClientesPanel() {
         initComponents();
@@ -73,7 +101,7 @@ public class ClientesPanel extends javax.swing.JPanel {
         labelTitulo.setBounds(280, 20, 280, 34);
 
         labelEmail.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        labelEmail.setText("e-mail");
+        labelEmail.setText("Cpf");
         add(labelEmail);
         labelEmail.setBounds(230, 150, 70, 23);
         add(jLabel6);
@@ -88,7 +116,7 @@ public class ClientesPanel extends javax.swing.JPanel {
         inputPesquisar.setBounds(580, 290, 190, 22);
 
         labelCpf.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        labelCpf.setText("CPF");
+        labelCpf.setText("Email");
         add(labelCpf);
         labelCpf.setBounds(510, 150, 90, 20);
 
@@ -134,7 +162,7 @@ public class ClientesPanel extends javax.swing.JPanel {
         jLabel4.setBounds(540, 280, 50, 40);
 
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "CPF", "Nome", "Telefone", "Email" });
+                new String[] { "", "", "", "" });
         table = new JTable(tableModel);
         jScrollPane3.setViewportView(table);
 
@@ -151,6 +179,7 @@ public class ClientesPanel extends javax.swing.JPanel {
         InputTelefone.setBounds(510, 110, 190, 22);
 
         new ClientesDAO().criaTabela();
+        
         atualizarTabela();
 
         // tratamento de eventos do construtor
@@ -158,45 +187,59 @@ public class ClientesPanel extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent evt) {
                 linhaSelecionada = table.rowAtPoint(evt.getPoint());
                 if (linhaSelecionada != -1) {
-                    InputCpf.setText((String) table.getValueAt(linhaSelecionada, 0));
-                    InputNome.setText((String) table.getValueAt(linhaSelecionada, 1));
+                    InputNome.setText((String) table.getValueAt(linhaSelecionada, 0));
+                    InputEmail.setText((String) table.getValueAt(linhaSelecionada, 1));
                     InputTelefone.setText((String) table.getValueAt(linhaSelecionada, 2));
-                    InputEmail.setText((String) table.getValueAt(linhaSelecionada, 3));
+                    InputCpf.setText((String) table.getValueAt(linhaSelecionada, 3));
+                } else {
+                    // Limpa os campos se nenhum registro estiver selecionado
+                    InputNome.setText("");
+                    InputEmail.setText("");
+                    InputTelefone.setText("");
+                    InputCpf.setText("");
                 }
             }
         });
+        
+
+
+
 
         ClientesControl operacoes = new ClientesControl(clientes, tableModel, table);
 
         // ---- AÇÃO DE CADASTRAR CLIENTE ----
         btnCadastro.addActionListener(e -> {
-            operacoes.cadastrar(InputNome.getText(), InputCpf.getText(),
-                    InputTelefone.getText(), InputEmail.getText());
+            operacoes.cadastrar(InputNome.getText(), InputEmail.getText(),
+                    InputTelefone.getText(), InputCpf.getText());
             // Limpa os campos de entrada após a operação de cadastro
             InputNome.setText("");
-            InputCpf.setText("");
-            InputTelefone.setText("");
             InputEmail.setText("");
+            InputTelefone.setText("");
+            InputCpf.setText("");
         });
 
-        // ---- AÇÃO DE EDITAR CLIENTE ----
+        
         bntEditar.addActionListener(e -> {
-            // Chama o método "atualizar" do objeto operacoes com os valores dos
-            // campos de entrada
-            operacoes.atualizar(InputNome.getText(), InputCpf.getText(),
-                    InputTelefone.getText(), InputEmail.getText());
-            // Limpa os campos de entrada após a operação de atualização
-            InputNome.setText("");
-            InputCpf.setText("");
-            InputTelefone.setText("");
-            InputEmail.setText("");
+            if (linhaSelecionada != -1) {
+                String cpf = InputCpf.getText(); // Obtendo o CPF diretamente do campo de texto
+        
+                operacoes.atualizar(InputNome.getText(), InputEmail.getText(), InputTelefone.getText(), cpf);
+                
+                InputNome.setText("");
+                InputCpf.setText("");
+                InputTelefone.setText("");
+                InputEmail.setText("");
+                
+                atualizarTabela();
+            }
         });
+
 
         // Configura a ação do botão "apagar" para excluir um registro no banco de dados
         btnApagar.addActionListener(e -> {
             // Chama o método "apagar" do objeto operacoes com o valor do campo de
             // entrada "placa"
-            operacoes.apagar(InputEmail.getText());
+            operacoes.apagar(InputCpf.getText());
             // Limpa os campos de entrada após a operação de exclusão
             InputNome.setText("");
             InputCpf.setText("");
@@ -206,34 +249,6 @@ public class ClientesPanel extends javax.swing.JPanel {
 
     }// </editor-fold>//GEN-END:initComponents
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField InputCpf;
-    private javax.swing.JTextField InputEmail;
-    private javax.swing.JTextField InputNome;
-    private javax.swing.JTextField InputTelefone;
-    private javax.swing.JButton bntEditar;
-    private javax.swing.JButton btnApagar;
-    private javax.swing.JButton btnCadastro;
-    private javax.swing.JButton btnLimpar;
-    private javax.swing.JTextField inputPesquisar;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel labelCpf;
-    private javax.swing.JLabel labelEmail;
-    private javax.swing.JLabel labelNome;
-    private javax.swing.JLabel labelTelefone;
-    private javax.swing.JLabel labelTitulo;
-    private DefaultTableModel tableModel;
-    private JTable table;
-    private int linhaSelecionada = -1;
-
-    // End of variables declaration//GEN-END:variables
 
     // Método para atualizar a tabela de exibição com dados do banco de dados
     private void atualizarTabela() {
@@ -243,9 +258,9 @@ public class ClientesPanel extends javax.swing.JPanel {
         // Obtém os clientes atualizados do banco de dados
         for (Clientes cliente : clientes) {
             // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEmail(),
+            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getCpf(),
 
-                    cliente.getTelefone(), cliente.getCpf() });
+                    cliente.getTelefone(), cliente.getEmail() });
 
         }
     }
