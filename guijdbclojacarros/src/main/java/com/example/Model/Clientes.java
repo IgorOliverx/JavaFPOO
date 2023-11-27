@@ -19,6 +19,7 @@ public class Clientes {
 
     }
 
+    //métodos especiais 
     public String getNome() {
         return nome;
     }

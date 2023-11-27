@@ -1,8 +1,8 @@
 package com.example.Model;
 
-//A classe carros representa a modelagem de dados a partir do banco de dados
+//A classe carros representa a modelagem de dados a partir do banco de dados e uma entidade
 public class Carros {
-    //atributos -> explorar atributos como: Carro usado/carro com km tal/usado por alguem, sei la
+    //atributos
     private String marca;
     private String modelo;
     private String ano;
@@ -26,8 +26,7 @@ public class Carros {
     
 
 
-
-    //note que declarei como string mas preciso fazer os tratamentos de erros para por exemplo: inserir letras no atributo ano
+    //métodos especiais
     public String getMarca() {
         return marca;
     }

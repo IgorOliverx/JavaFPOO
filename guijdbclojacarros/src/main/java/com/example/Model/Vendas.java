@@ -1,58 +1,63 @@
 package com.example.Model;
 
 public class Vendas {
-    private String valorVenda;
-    private String dataVenda;
-    private String carroVendido;
+    
+    private String modeloVeiculo;
+    private String marcaVeiculo;
+    private String placaVeiculo;
     private String vendedor;
+    private String valorVenda;
+    private String comprador;
+    private String dataVenda;
 
-
-    public Vendas(String valorVenda, String dataVenda, String carroVendido){
+    //Construtor inicializando atributos
+    public Vendas(String modeloVeiculo, String marcaVeiculo, String placaVeiculo, String vendedor, String valorVenda, String comprador, String dataVenda) {
+        this.modeloVeiculo = modeloVeiculo;
+        this.marcaVeiculo = marcaVeiculo;
+        this.placaVeiculo = placaVeiculo;
+        this.vendedor = vendedor;
         this.valorVenda = valorVenda;
-        this.dataVenda = dataVenda;
-        this.carroVendido = carroVendido;
-    }
-
-
-    public String getValorVenda() {
-        return valorVenda;
-    }
-
-
-    public void setValorVenda(String valorVenda) {
-        this.valorVenda = valorVenda;
-    }
-
-
-    public String getDataVenda() {
-        return dataVenda;
-    }
-
-
-    public void setDataVenda(String dataVenda) {
+        this.comprador = comprador;
         this.dataVenda = dataVenda;
     }
 
+    //construtor vazio
+    public Vendas() {}
 
-    public String getCarroVendido() {
-        return carroVendido;
+    //métodos especiais
+    public String getModeloVeiculo() {
+        return modeloVeiculo;
     }
 
-
-    public void setCarroVendido(String carroVendido) {
-        this.carroVendido = carroVendido;
+    public String getMarcaVeiculo() {
+        return marcaVeiculo;
     }
 
+    public String getPlacaVeiculo() {
+        return placaVeiculo;
+    }
 
     public String getVendedor() {
         return vendedor;
     }
 
-
-    public void setVendedor(String vendedor) {
-        this.vendedor = vendedor;
+    public String getValorVenda() {
+        return valorVenda;
     }
 
+    public String getComprador() {
+        return comprador;
+    }
 
+    public String getDataVenda() {
+        return dataVenda;
+    }
+    
+
+    
+
+
+
+   
     
 }

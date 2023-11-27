@@ -40,14 +40,14 @@ public class ClientesControl {
 
      // Método para cadastrar um novo cliente no banco de dados
      public void cadastrar(String nome, String cpf, String telefone, String email) {
-        new ClientesDAO().cadastrar(nome, cpf, telefone, email);
+        new ClientesDAO().cadastrar(nome, email, telefone, cpf);
         // Chama o método de cadastro no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após o cadastro
     }
 
      // Método para atualizar os dados de um cliente no banco de dados
     public void atualizar(String nome, String cpf, String telefone, String email) {
-        new ClientesDAO().atualizar(nome, cpf, telefone, email);
+        new ClientesDAO().atualizar(nome, email, telefone, cpf);
         // Chama o método de atualização no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após a atualização
     }

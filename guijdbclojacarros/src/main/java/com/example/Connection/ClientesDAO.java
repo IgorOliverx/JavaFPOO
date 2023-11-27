@@ -1,7 +1,6 @@
 package com.example.Connection;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,9 +50,9 @@ public class ClientesDAO {
 
             Clientes cliente = new Clientes(
                   rs.getString("nome"),
-                  rs.getString("cpf"),
+                  rs.getString("email"),
                   rs.getString("telefone"),
-                  rs.getString("email"));
+                  rs.getString("cpf"));
             clientes.add(cliente); // Adiciona o objeto Clientes à lista de clientes
 
 
@@ -74,13 +73,13 @@ public class ClientesDAO {
    public void cadastrar(String nome, String cpf, String telefone, String email) {
     PreparedStatement stmt = null;
     // Define a instrução SQL parametrizada para cadastrar na tabela
-    String sql = "INSERT INTO clientes (nome, cpf, telefone, email) VALUES (?, ?, ?, ?)";
+    String sql = "INSERT INTO clientes (nome, email, telefone, cpf) VALUES (?, ?, ?, ?)";
     try {
        stmt = connection.prepareStatement(sql);
        stmt.setString(1, nome);
-       stmt.setString(2, cpf);
+       stmt.setString(2, email);
        stmt.setString(3, telefone);
-       stmt.setString(4, email);
+       stmt.setString(4, cpf);
        stmt.executeUpdate();
        System.out.println("Dados inseridos com sucesso");
     } catch (SQLException e) {
@@ -91,7 +90,7 @@ public class ClientesDAO {
  }
 
   // Atualizar dados no banco
-  public void atualizar(String nome, String cpf, String telefone, String email) {
+  public void atualizar(String nome, String email, String telefone, String cpf) {
    PreparedStatement stmt = null;
    String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ? WHERE cpf = ?";
    try {

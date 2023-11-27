@@ -1,9 +1,12 @@
 package com.example.View;
 
+import java.util.function.Supplier;
+
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.DimensionUIResource;
 
+import com.example.Main;
 import com.example.View.*;
 
 
@@ -13,7 +16,9 @@ public class JanelaPrincipal extends JFrame {
     private JTabbedPane jTPane;
 
     public JanelaPrincipal() {
+        super("Dashboard - Controle de vendas");
         setResizable(false);
+
         jTPane = new JTabbedPane();
         add(jTPane);
         // criandos as tabs
@@ -25,14 +30,7 @@ public class JanelaPrincipal extends JFrame {
         ClientesPanel tab2 = new ClientesPanel();
         jTPane.add("Clientes", tab2);
         VendasPainel tab3 = new VendasPainel();
-        jTPane.add("Vendas",tab3);
-        Login tab4 = new Login();
-        jTPane.add("Login", tab4);
-      //  ClientesPa tab5 = new ClientesPa();
-       // jTPane.add("Funciona", tab5);
-
-
-        
+        jTPane.add("Vendas",tab3); 
     }
 
     // métodos para tornar a janela visível

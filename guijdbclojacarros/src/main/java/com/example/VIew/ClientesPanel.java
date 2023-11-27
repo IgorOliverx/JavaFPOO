@@ -162,7 +162,7 @@ public class ClientesPanel extends javax.swing.JPanel {
         jLabel4.setBounds(540, 280, 50, 40);
 
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "", "", "", "" });
+                new String[] { "Nome", "Email", "Telefone", "CPF" });
         table = new JTable(tableModel);
         jScrollPane3.setViewportView(table);
 
@@ -184,25 +184,24 @@ public class ClientesPanel extends javax.swing.JPanel {
 
         // tratamento de eventos do construtor
         table.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 linhaSelecionada = table.rowAtPoint(evt.getPoint());
                 if (linhaSelecionada != -1) {
                     InputNome.setText((String) table.getValueAt(linhaSelecionada, 0));
-                    InputEmail.setText((String) table.getValueAt(linhaSelecionada, 1));
+                    InputCpf.setText((String) table.getValueAt(linhaSelecionada, 1));
                     InputTelefone.setText((String) table.getValueAt(linhaSelecionada, 2));
-                    InputCpf.setText((String) table.getValueAt(linhaSelecionada, 3));
+                    InputEmail.setText((String) table.getValueAt(linhaSelecionada, 3));
                 } else {
-                    // Limpa os campos se nenhum registro estiver selecionado
                     InputNome.setText("");
-                    InputEmail.setText("");
-                    InputTelefone.setText("");
                     InputCpf.setText("");
+                    InputTelefone.setText("");
+                    InputEmail.setText("");
                 }
             }
         });
         
-
-
+        
 
 
         ClientesControl operacoes = new ClientesControl(clientes, tableModel, table);
@@ -258,9 +257,9 @@ public class ClientesPanel extends javax.swing.JPanel {
         // Obtém os clientes atualizados do banco de dados
         for (Clientes cliente : clientes) {
             // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getCpf(),
+            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEmail(),
 
-                    cliente.getTelefone(), cliente.getEmail() });
+                    cliente.getTelefone(), cliente.getCpf() });
 
         }
     }
