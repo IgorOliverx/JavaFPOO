@@ -11,16 +11,17 @@ import java.util.List;
 import com.example.Model.Carros;
 
 public class CarrosDAO {
-   // atributo
+   // Atributo de classe Connection
    private Connection connection;
+   //Array de carros
    private List<Carros> carros;
 
-   // construtor
+   // Construtor inicializando a conexão com o bd
    public CarrosDAO() {
       this.connection = ConnectionFactory.getConnection();
    }
 
-   // criar Tabela
+   // Método de criar Tabela
    public void criaTabela() {
       String sql = "CREATE TABLE IF NOT EXISTS carros_lojacarros (MARCA VARCHAR(255),MODELO VARCHAR(255),ANO VARCHAR(255),PLACA VARCHAR(255) PRIMARY KEY, VALOR VARCHAR(255))";
       try (Statement stmt = this.connection.createStatement()) {
@@ -31,6 +32,8 @@ public class CarrosDAO {
       } finally {
          ConnectionFactory.closeConnection(this.connection);
       }
+
+     // criarCarrosFicticios();
    }
 
    // Listar todos os valores cadastrados
@@ -126,5 +129,5 @@ public class CarrosDAO {
       } finally {
          ConnectionFactory.closeConnection(connection, stmt);
       }
-   }
+   }  
 }

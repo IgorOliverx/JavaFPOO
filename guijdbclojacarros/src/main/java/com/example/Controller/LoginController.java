@@ -1,18 +1,19 @@
 package com.example.Controller;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
-import com.example.Main;
+import com.example.Connection.CarrosDAO;
+import com.example.Connection.ClientesDAO;
 import com.example.Connection.LoginDAO;
-import com.example.View.JanelaPrincipal;
-import com.example.View.LoginView;
+import com.example.Connection.VendasDAO;
+import com.example.VIew.LoginPainel;
+import com.example.VIew.JanelaPrincipal;
 
 public class LoginController {
     //criando uma variável de classe como referência(eu quebrei muito a cabeça nisto)
-   private LoginView loginView;
+   private LoginPainel loginView;
 
-    public LoginController(LoginView loginView) {
+    public LoginController(LoginPainel loginView) {
         this.loginView = loginView;
     }
 
@@ -39,5 +40,6 @@ public class LoginController {
                             }
 
         }
+  
     }
 

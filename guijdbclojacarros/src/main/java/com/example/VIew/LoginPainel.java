@@ -1,4 +1,4 @@
-package com.example.View;
+package com.example.VIew;
 
 
 
@@ -10,18 +10,16 @@ import com.example.Controller.LoginController;
  * @author Igor
  */
 
-public class LoginView extends javax.swing.JFrame {
+public class LoginPainel extends javax.swing.JFrame {
 
 
-    public LoginView() {
+    public LoginPainel() {
         super("Concessionária EndrickMotors");
         setVisible(true);
         initComponents();
         setSize(400,400);
         setLocationRelativeTo(null);
         setResizable(false);
-
-       
     }
 
   
@@ -77,13 +75,18 @@ public class LoginView extends javax.swing.JFrame {
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
-                System.out.println('s');
+                System.out.println("Imprimindo botao - a ação esta funcionando");
             }
         });
         add(btnEntrar);
         btnEntrar.setBounds(370, 270, 72, 23);
 
-        
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+                System.out.println('s');
+            }
+        });
         btnSair.setText("Sair");
         add(btnSair);
         btnSair.setBounds(260, 270, 72, 23);
@@ -116,12 +119,15 @@ public class LoginView extends javax.swing.JFrame {
         String senha = jFormattedTextFieldSenha.getText();
         
         operacao.verificaLogin(usuario, senha);
+
+        System.out.println(usuario);
+        System.out.println(senha);
        
     }
 
-     public void fecharJanela(){
-            dispose();
-        }
+   private void btnSairActionPerformed(java.awt.event.ActionEvent evt){
+    dispose();
+   }
 
 
     public javax.swing.JFormattedTextField getjFormattedTextFieldUsuario() {

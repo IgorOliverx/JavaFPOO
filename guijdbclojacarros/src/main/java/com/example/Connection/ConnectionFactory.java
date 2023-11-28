@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConnectionFactory {
      // atributos
@@ -12,6 +14,9 @@ public class ConnectionFactory {
     private static final String usuario = "postgres"; // Nome do ADM do banco
     private static final String senha = "postgres"; // Senha do ADM do banco
     // Método para obter uma conexão com o banco de dados
+
+    private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
+
     public static Connection getConnection() {
         try {
             return DriverManager.getConnection(url, usuario, senha);

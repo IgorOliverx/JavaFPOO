@@ -5,23 +5,22 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.example.Model.Clientes;
-import com.example.Connection.CarrosDAO;
 import com.example.Connection.ClientesDAO;
 
-public class ClientesControl {
+public class ClientesController {
      private List<Clientes> clientes;
     private DefaultTableModel tableModel;
     private JTable table;
 
     //Construtor inicializando atributos
-    public ClientesControl(List<Clientes> clientes, DefaultTableModel tableModel, JTable table) {
+    public ClientesController(List<Clientes> clientes, DefaultTableModel tableModel, JTable table) {
         this.clientes = clientes;
         this.tableModel = tableModel;
         this.table = table;
     }
 
     //Construtor vazio
-    public ClientesControl(){
+    public ClientesController(){
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.Connection;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,18 +13,20 @@ import com.example.Model.Vendas;
 
 public class VendasDAO {
 
-    // Atributosy
+    // Atributo da classe Connection 
     private Connection connection;
+    //Array para armazenar as vendas
     private List<Vendas> vendas;
 
-    // Construtor
+    // Construtor inicializando a conexão
     public VendasDAO() {
         this.connection = ConnectionFactory.getConnection();
     }
 
-  
+    
+    // Método de criar Tabela
     public void criaTabela() {
-        String sql = "CREATE TABLE IF NOT EXISTS vendas (MODELO VARCHAR(255), MARCA VARCHAR(255), PLACA VARCHAR(255) PRIMARY KEY, VENDEDOR VARCHAR(255), VALOR VARCHAR(255), COMPRADOR VARCHAR(255), DATA VARCHAR(255))";
+        String sql = "CREATE TABLE IF NOT EXISTS vendas (MARCA VARCHAR(255), MODELO VARCHAR(255), VALOR VARCHAR(255) ,PLACA VARCHAR(255) PRIMARY KEY, CLIENTE VARCHAR(255), DATA VARCHAR(255))";
 
         try (Statement stmt = this.connection.createStatement()) {
             stmt.execute(sql);
@@ -54,14 +57,12 @@ public class VendasDAO {
                 // registro
 
                 Vendas venda = new Vendas(
-                    rs.getString("modeloVeiculo"),
-                    rs.getString("marcaVeiculo"),
-                    rs.getString("placaVeiculo"),
-                    rs.getString("vendedor"),
-                    rs.getString("valorVenda"),
-                    rs.getString("comprador"),
-                    rs.getString("dataVenda")
-                );
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getString("valor"),
+                        rs.getString("placa"),
+                        rs.getString("cliente"),
+                        rs.getString("data"));
                 vendas.add(venda); // Adiciona o objeto vendas à lista de vendas
             }
         } catch (SQLException ex) {
@@ -74,20 +75,20 @@ public class VendasDAO {
         return vendas; // Retorna a lista de vendas recuperados do banco de dados
     }
 
-    // Cadastrar Carro no banco
-    public void vender(String modeloVeiculo, String marcaVeiculo, String placaVeiculo, String vendedor, String valorVenda, String comprador, String dataVenda) {
+    
+    // Cadastrar Vendas no banco
+    public void vender(String marca, String modelo, String valor, String placa, String cliente, String data) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para cadastrar na tabela
-        String sql = "INSERT INTO vendas (modelo, marca, placa, vendedor, valor, comprador, data) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO vendas (marca, modelo, valor, placa, cliente, data) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             stmt = connection.prepareStatement(sql);
-            stmt.setString(1, modeloVeiculo);
-            stmt.setString(2, marcaVeiculo);
-            stmt.setString(3, placaVeiculo);
-            stmt.setString(4, vendedor);
-            stmt.setString(5, valorVenda);
-            stmt.setString(6, comprador);
-            stmt.setString(7, dataVenda);
+            stmt.setString(1, marca);
+            stmt.setString(2, modelo);
+            stmt.setString(3, valor);
+            stmt.setString(4, placa);
+            stmt.setString(5, cliente);
+            stmt.setString(6, data);
             stmt.executeUpdate();
             System.out.println("Dados inseridos com sucesso");
 
@@ -98,20 +99,19 @@ public class VendasDAO {
         }
     }
 
-    // Atualizar dados no banco(corrigir)
-    public void atualizar(String marca, String modelo, String valor, String placa, String cliente, String dataHora) {
+    // Atualizar dados no banco
+    public void atualizar(String marca, String modelo, String valor, String placa, String cliente, String data) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para atualizar dados pela placa
-        String sql = "UPDATE vendas SET marca = ?, modelo = ?, valor = ?, WHERE placa = ?, cliente = ? dataHora = ?";
+        String sql = "UPDATE vendas SET marca = ?, modelo = ?, valor = ?, WHERE placa = ?, cliente = ? data = ?";
         try {
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, marca);
             stmt.setString(2, modelo);
             stmt.setString(3, valor);
-            // placa é chave primaria não pode ser alterada.
-            stmt.setString(4, placa);
+            stmt.setString(4, placa); // placa é chave primaria não pode ser alterada.
             stmt.setString(5, cliente);
-            stmt.setString(6, dataHora);
+            stmt.setString(6, data);
             stmt.executeUpdate();
             System.out.println("Dados atualizados com sucesso");
         } catch (SQLException e) {
